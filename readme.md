@@ -1,6 +1,9 @@
 迅雷离线客户端 - 如果你有16级以上账户，你可以完全免费使用！
 
 迅雷的漏洞太多了，当然本程序并不利用安全漏洞.
+---
+注意：老版本的功能会逐渐添加回来（翻墙自己看）
+c0debreak.blogspot.com/2012/03/thunder-vip-cloud-client-for-linux-by.html
 
 使用方法：
 
