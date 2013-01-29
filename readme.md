@@ -4,7 +4,7 @@
 
 截图:
 
-![Screenshot] (https://raw.github.com/CaledoniaProject/XLCloudClient/master/contrib/1.png "Desktop screenshot")
-![Screenshot] (https://raw.github.com/CaledoniaProject/XLCloudClient/master/contrib/2.png "Desktop screenshot")
-![Screenshot] (https://raw.github.com/CaledoniaProject/XLCloudClient/master/contrib/3.png "Desktop screenshot")
-![Screenshot] (https://raw.github.com/CaledoniaProject/XLCloudClient/master/contrib/4.png "Desktop screenshot")
+![Screenshot] (https://raw.github.com/CaledoniaProject/XLCloudClient/master/contrib/screenshot/1.png "Desktop screenshot")
+![Screenshot] (https://raw.github.com/CaledoniaProject/XLCloudClient/master/contrib/screenshot/2.png "Desktop screenshot")
+![Screenshot] (https://raw.github.com/CaledoniaProject/XLCloudClient/master/contrib/screenshot/3.png "Desktop screenshot")
+![Screenshot] (https://raw.github.com/CaledoniaProject/XLCloudClient/master/contrib/screenshot/4.png "Desktop screenshot")
