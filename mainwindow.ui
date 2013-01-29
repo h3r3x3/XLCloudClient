@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>627</width>
+    <height>339</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/resources/images/thunder-256.png</normaloff>:/resources/images/thunder-256.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>627</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_F">
+    <property name="title">
+     <string>F&amp;ile</string>
+    </property>
+    <addaction name="actionNewTask"/>
+    <addaction name="actionE_xport"/>
+    <addaction name="separator"/>
+    <addaction name="actionQ_uit"/>
+   </widget>
+   <widget class="QMenu" name="menu_E">
+    <property name="title">
+     <string>E&amp;dit</string>
+    </property>
+    <addaction name="actionPreferences"/>
+   </widget>
+   <widget class="QMenu" name="menuH_elp">
+    <property name="title">
+     <string>H&amp;elp</string>
+    </property>
+    <addaction name="actionAboutAuthor"/>
+    <addaction name="separator"/>
+    <addaction name="actionAboutQt"/>
+   </widget>
+   <addaction name="menu_F"/>
+   <addaction name="menu_E"/>
+   <addaction name="menuH_elp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionAboutAuthor">
+   <property name="text">
+    <string>About Author</string>
+   </property>
+  </action>
+  <action name="actionAboutQt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+  </action>
+  <action name="actionE_xport">
+   <property name="text">
+    <string>E&amp;xport</string>
+   </property>
+  </action>
+  <action name="actionQ_uit">
+   <property name="icon">
+    <iconset>
+     <normalon>:/resources/images/dialog-close.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Q&amp;uit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="icon">
+    <iconset>
+     <normalon>:/resources/images/preferences-other.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>P&amp;references</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionNewTask">
+   <property name="icon">
+    <iconset>
+     <normalon>:/resources/images/edit-add.svg</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>N&amp;ew Task</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
