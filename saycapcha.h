@@ -21,6 +21,7 @@
 
 #include <QDialog>
 #include <QPixmap>
+#include <QDebug>
 
 namespace Ui {
 class SayCapcha;
@@ -39,8 +40,9 @@ public:
 private slots:
     void on_code_returnPressed();
 
-    void accept();
-    void reject();
+    void on_buttonBox_accepted();
+
+    void on_buttonBox_rejected();
 
 signals:
     void capchaReady (const QString & capcha);

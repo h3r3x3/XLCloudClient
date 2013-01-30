@@ -25,6 +25,7 @@
 #include <QNetworkCookie>
 #include <QList>
 #include <QFile>
+#include <QDesktopServices>
 #include <QDateTime>
 
 #include <cstdio>
@@ -94,6 +95,12 @@ public:
      * \return
      */
     static QString getRandomString (const int & len = 15);
+
+    /*!
+     * \brief Get absolute path of user home directory
+     * \return
+     */
+    static QString getHomeLocation ();
     
 signals:
     

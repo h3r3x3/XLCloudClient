@@ -23,6 +23,11 @@ Util::Util(QObject *parent) :
 {
 }
 
+QString Util::getHomeLocation()
+{
+    return QDesktopServices::storageLocation(QDesktopServices::HomeLocation);
+}
+
 void Util::init()
 {
     static_iconMapping.insert("avi", ":/resources/images/movie.png");

@@ -62,17 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
         restoreGeometry( settings.value("Geometry").toByteArray() );
     }
 
-    ///
-    {
-        QSettings settings;
-        settings.beginGroup("General");
-
-        const QString & user = settings.value("User").toString();
-        const QString & credential = settings.value("Credential").toString();
-
-        if (! user.isEmpty() && ! credential.isEmpty())
-            tcore->login(user, credential);
-    }
+    login ();
 }
 
 MainWindow::~MainWindow()
@@ -84,6 +74,18 @@ MainWindow::~MainWindow()
     sets.endGroup();
 
     delete ui;
+}
+
+void MainWindow::login()
+{
+    QSettings settings;
+    settings.beginGroup("General");
+
+    const QString & user = settings.value("User").toString();
+    const QString & credential = settings.value("Credential").toString();
+
+    if (! user.isEmpty() && ! credential.isEmpty())
+        tcore->login(user, credential);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
@@ -181,9 +183,16 @@ void MainWindow::on_actionAboutAuthor_triggered()
                                                                  " (the.warl0ck.1989@gmail.com)"));
 }
 
+void MainWindow::slotSettingsChanged ()
+{
+    // BUG: signal emitted prior to settings storage
+    QTimer::singleShot(1000, this, SLOT(login()));
+}
+
 void MainWindow::on_actionPreferences_triggered()
 {
     PreferencesDlg *dlg = new PreferencesDlg (this);
+    connect (dlg, SIGNAL(accepted()), SLOT(slotSettingsChanged()));
     dlg->exec();
 }
 

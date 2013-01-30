@@ -300,7 +300,7 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
 
     if (urlStr.startsWith("http://dynamic.cloud.vip.xunlei.com/interface/history_clear"))
     {
-        error(tr("History emptyed"), Notice);
+        error(tr("History emptied"), Notice);
     }
 
     qDebug() << "Unhandled reply:" << "\n----";

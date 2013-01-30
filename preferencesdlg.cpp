@@ -30,6 +30,11 @@ PreferencesDlg::PreferencesDlg(QWidget *parent) :
     settings.beginGroup("General");
     ui->user->setText(settings.value("User").toString());
     ui->credential->setText(settings.value("Credential").toString());
+    settings.endGroup();
+
+    settings.beginGroup("Transf0r");
+    ui->storageLocation->setText(settings.value("StorageLocation", Util::getHomeLocation()).toString());
+    settings.endGroup();
 
     int cIdx = settings.value("Index").toInt();
     if (cIdx < ui->tabWidget->count())
@@ -38,6 +43,7 @@ PreferencesDlg::PreferencesDlg(QWidget *parent) :
     settings.beginGroup("Video");
     ui->mplayerBuffer->setText(settings.value("mplayerBufferSize").toString());
     ui->mplayerPath->setText(settings.value("mplayerPath").toString());
+    settings.endGroup();
 }
 
 PreferencesDlg::~PreferencesDlg()
@@ -52,7 +58,14 @@ void PreferencesDlg::on_buttonBox_accepted()
     settings.beginGroup("General");
     settings.setValue("Index", ui->tabWidget->currentIndex());
     settings.setValue("User", ui->user->text());
-    settings.setValue("Credential", Util::getMD5Hex(ui->credential->text()));
+
+    // BUG if password too fuckin' long!
+    if (ui->credential->text().length() != 16)
+        settings.setValue("Credential", Util::getMD5Hex(ui->credential->text()));
+    settings.endGroup();
+
+    settings.beginGroup("Transf0r");
+    settings.setValue("StorageLocation", ui->storageLocation->text());
     settings.endGroup();
 
     settings.beginGroup("Video");

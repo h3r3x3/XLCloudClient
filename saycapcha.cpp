@@ -41,14 +41,12 @@ void SayCapcha::on_code_returnPressed()
     accept();
 }
 
-void SayCapcha::accept()
+void SayCapcha::on_buttonBox_accepted()
 {
     emit capchaReady(ui->capcha->text());
-
-    close ();
 }
 
-void SayCapcha::reject()
+void SayCapcha::on_buttonBox_rejected()
 {
-    close ();
+    qDebug() << "SayCapcha::reject()";
 }

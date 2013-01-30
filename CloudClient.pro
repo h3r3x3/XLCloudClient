@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     transf0r.cpp \
     downloader.cpp \
     downloaderchildwidget.cpp \
-    saycapcha.cpp
+    saycapcha.cpp \
+    fileselectorline.cpp
 
 HEADERS  += mainwindow.h \
     thundercore.h \
@@ -45,7 +46,8 @@ HEADERS  += mainwindow.h \
     transf0r.h \
     downloaderchildwidget.h \
     downloader.h \
-    saycapcha.h
+    saycapcha.h \
+    fileselectorline.h
 
 FORMS    += mainwindow.ui \
     thunderpanel.ui \
@@ -56,7 +58,8 @@ FORMS    += mainwindow.ui \
     addcloudtask.ui \
     transf0r.ui \
     downloaderchildwidget.ui \
-    saycapcha.ui
+    saycapcha.ui \
+    fileselectorline.ui
 
 RESOURCES += \
     resources.qrc

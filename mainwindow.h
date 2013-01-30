@@ -61,13 +61,17 @@ private:
 protected:
     void keyPressEvent(QKeyEvent *e);
 
-public slots:
+private slots:
     void slotError (const QString & body, ThunderCore::ErrorCategory category);
     void slotStatusChanged (ThunderCore::ChangeType type);
 
     void slotRequestReceived (const Thunder::RemoteTask & task,
                               ThunderPanel::RequestType type);
     void slotIndirectRequestReceived (ThunderPanel::IndirectRequestType type);
+
+
+    void slotSettingsChanged ();
+    void login ();
 
 private:
     bool question (const QString & body, const QString & title = tr("Question"));
