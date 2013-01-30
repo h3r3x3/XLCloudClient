@@ -34,4 +34,5 @@
 ![Screenshot] (https://raw.github.com/CaledoniaProject/XLCloudClient/master/contrib/screenshot/4.png "Desktop screenshot")
 
 ## 给官方的几点建议
-代码确实挺XX的，uid 竟然要作为参数传递进去，确实很意外啊！
+代码确实挺XX的，大部分地方 uid 竟然要作为参数传递进去，确实很意外啊！
+这些不是应该在 session 里面么？
