@@ -89,8 +89,6 @@ public:
 
     explicit ThunderCore(QObject *parent = 0);
 
-    QNetworkAccessManager *getNAM ();
-
     void login (const QString & user, const QString & passwd);
     LoginStatus getLoginStatus ();
     QByteArray getCapchaCode ();
@@ -106,6 +104,8 @@ public:
 
     Thunder::RemoteTask getSingleRemoteTask ();
     Thunder::BitorrentTask getUploadedBTTasks();
+
+    void cleanupHistory ();
     
 signals:
     void error (const QString & body, ThunderCore::ErrorCategory category);

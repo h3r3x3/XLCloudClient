@@ -26,11 +26,6 @@ ThunderCore::ThunderCore(QObject *parent) :
              SLOT(slotFinished(QNetworkReply*)));
 }
 
-QNetworkAccessManager *ThunderCore::getNAM()
-{
-    return tc_nam;
-}
-
 QList<Thunder::Task> ThunderCore::getCloudTasks()
 {
     return tc_cloudTasks;
@@ -44,6 +39,12 @@ QList<Thunder::Task> ThunderCore::getGarbagedTasks()
 Thunder::RemoteTask ThunderCore::getSingleRemoteTask()
 {
     return tmp_singleTask;
+}
+
+void ThunderCore::cleanupHistory()
+{
+    get ("http://dynamic.cloud.vip.xunlei.com/interface/history_clear"
+         "?tcache=1328430359476&flag=6&uid=" + tc_session.value("userid"));
 }
 
 void ThunderCore::commitBitorrentTask(const QList<Thunder::BTSubTask> &tasks)
@@ -297,6 +298,11 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
         return;
     }
 
+    if (urlStr.startsWith("http://dynamic.cloud.vip.xunlei.com/interface/history_clear"))
+    {
+        error(tr("History emptyed"), Notice);
+    }
+
     qDebug() << "Unhandled reply:" << "\n----";
     qDebug() << "URL: " << urlStr;
     qDebug() << "Cookie: ";
@@ -349,12 +355,14 @@ void ThunderCore::parseCloudPage(const QByteArray &body)
         {
             const QString & id = input.attribute("id");
             if (id.startsWith("f_url"))       task.source = input.attribute("value");
-            if (id.startsWith("dcid"))        task.cid = input.attribute("value");
-            if (id.startsWith("durl"))        task.name = input.attribute("value");
-            if (id.startsWith("dl_url"))      task.link = input.attribute("value");
+            if (id.startsWith("dcid"))        task.cid    = input.attribute("value");
+            if (id.startsWith("durl"))        task.name   = input.attribute("value");
+            if (id.startsWith("dl_url"))      task.link   = input.attribute("value");
             if (id.startsWith("bt_down_url")) task.bt_url = input.attribute("value");
-            if (id.startsWith("ysfilesize"))  task.size = input.attribute("value").toULongLong();
+            if (id.startsWith("ysfilesize"))  task.size   = input.attribute("value").toULongLong();
             if (id.startsWith("d_status"))    task.status = input.attribute("value").toInt();
+
+            qDebug() << id;
         }
 
         if (! task.isEmpty())
