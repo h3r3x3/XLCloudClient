@@ -179,13 +179,14 @@ void MainWindow::slotError(const QString &body, ThunderCore::ErrorCategory categ
 
 void MainWindow::on_actionAboutAuthor_triggered()
 {
-    QMessageBox::about(this, QApplication::applicationName(), tr("VIP Cloud client<br/>Written by <b>Aaron Lewis</b>"
+    QMessageBox::about(this, QApplication::applicationName(), tr("Xunlei (迅雷) VIP Cloud client<br/><br/>Written by <b>Aaron Lewis</b>"
                                                                  " (the.warl0ck.1989@gmail.com)"));
 }
 
 void MainWindow::slotSettingsChanged ()
 {
-    // BUG: signal emitted prior to settings storage
+    // BUG:   signal emitted prior to settings storage
+    // Trick: delayed function calls
     QTimer::singleShot(1000, this, SLOT(login()));
 }
 

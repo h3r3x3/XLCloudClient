@@ -88,6 +88,14 @@ void ThunderCore::loginWithCapcha(const QByteArray &capcha)
               tc_passwd, QString::fromAscii(capcha), true).toAscii());
 }
 
+void ThunderCore::getContentsOfBTFolder(const Thunder::BitorrentTask &bt_task)
+{
+    get ("http://dynamic.cloud.vip.xunlei.com/interface/fill_bt_list"
+         "?callback=a&g_net=1&p=1&noCacheIE=1328405858893&infoid=" + bt_task.infoid +
+         "&tid=" + bt_task.taskid +
+         "&uid=" + tc_session.value("userid"));
+}
+
 void ThunderCore::setCapcha(const QString &code)
 {
     loginWithCapcha(code.toAscii());
@@ -308,6 +316,12 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
         return;
     }
 
+    if (urlStr.startsWith("http://dynamic.cloud.vip.xunlei.com/interface/fill_bt_list"))
+    {
+        error(tr("BT task page retrieved, parsing .."), Notice);
+
+    }
+
     qDebug() << "Unhandled reply:" << "\n----";
     qDebug() << "URL: " << urlStr;
     qDebug() << "Cookie: ";
@@ -336,14 +350,20 @@ void ThunderCore::parseCloudPage(const QByteArray &body)
     page.settings()->setAttribute(QWebSettings::AutoLoadImages, false);
 
     page.mainFrame()->setHtml(QString::fromUtf8(body));
+    tc_session.clear();
+
     /// FIND gdriveid
     foreach (const QWebElement & input, page.mainFrame()->findAllElements("input"))
-    {
         if (input.attribute("id") == "cok")
         {
             tc_session.insert("gdriveid", input.attribute("value"));
             break;
         }
+
+    if (! tc_session.contains("gdriveid"))
+    {
+        error (tr("Broken page! No gdrive id found, you will not be able to initiate any file transfer! "), Warning);
+        return;
     }
 
     tc_cloudTasks.clear();
@@ -366,8 +386,6 @@ void ThunderCore::parseCloudPage(const QByteArray &body)
             if (id.startsWith("bt_down_url")) task.bt_url = input.attribute("value");
             if (id.startsWith("ysfilesize"))  task.size   = input.attribute("value").toULongLong();
             if (id.startsWith("d_status"))    task.status = input.attribute("value").toInt();
-
-            qDebug() << id;
         }
 
         if (! task.isEmpty())

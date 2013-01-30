@@ -53,6 +53,7 @@ namespace Thunder
     {
         QString ftitle;
         QString infoid;
+        QString taskid;
         unsigned long long btsize;
         QList<BTSubTask> subtasks;
     };

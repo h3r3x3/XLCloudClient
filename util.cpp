@@ -35,11 +35,18 @@ void Util::init()
     static_iconMapping.insert("mkv", ":/resources/images/movie.png");
     static_iconMapping.insert("rm", ":/resources/images/movie.png");
     static_iconMapping.insert("rmvb", ":/resources/images/movie.png");
+    static_iconMapping.insert("flv", ":/resources/images/movie.png");
+    static_iconMapping.insert("mov", ":/resources/images/movie.png");
+    static_iconMapping.insert("mpg", ":/resources/images/movie.png");
+    static_iconMapping.insert("mpeg", ":/resources/images/movie.png");
 
     static_iconMapping.insert("pdf", ":/resources/images/pdf.png");
     static_iconMapping.insert("chm", ":/resources/images/pdf.png");
 
     static_iconMapping.insert("mp3", ":/resources/images/music.png");
+    static_iconMapping.insert("wma", ":/resources/images/music.png");
+    static_iconMapping.insert("ape", ":/resources/images/music.png");
+    static_iconMapping.insert("aac", ":/resources/images/music.png");
     static_iconMapping.insert("m4a", ":/resources/images/music.png");
 
     static_iconMapping.insert("rar", ":/resources/images/rar.png");
@@ -53,6 +60,9 @@ void Util::init()
     static_iconMapping.insert("jpg", ":/resources/images/image.png");
     static_iconMapping.insert("jpeg", ":/resources/images/image.png");
     static_iconMapping.insert("gif", ":/resources/images/image.png");
+    static_iconMapping.insert("psd", ":/resources/images/image.png");
+    static_iconMapping.insert("tif", ":/resources/images/image.png");
+    static_iconMapping.insert("tiff", ":/resources/images/image.png");
     static_iconMapping.insert("bmp", ":/resources/images/image.png");
 }
 

@@ -32,3 +32,7 @@ c0debreak.blogspot.com/2012/03/thunder-vip-cloud-client-for-linux-by.html
 抄袭一下迷你迅雷的界面！
 
 ![Screenshot] (https://raw.github.com/CaledoniaProject/XLCloudClient/master/contrib/screenshot/4.png "Desktop screenshot")
+
+给官方的几点建议
+---
+代码确实挺XX的，uid 竟然要作为参数传递进去，确实很意外啊！
