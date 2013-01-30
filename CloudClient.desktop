@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=CloudClient
+GenericName=
+Exec=CloudClient
+Icon=thunder
+Comment=
+Categories=Network;
+Type=Application
+StartupNotify=false
+Terminal=false
