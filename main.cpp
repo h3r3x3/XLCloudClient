@@ -19,6 +19,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include "util.h"
+#include "mediaplayer.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,6 +29,7 @@ int main(int argc, char *argv[])
     a.setOrganizationName("Labo-A.L");
 
     Util::init();
+    MediaPlayer::init();
 
     MainWindow w;
     w.show();

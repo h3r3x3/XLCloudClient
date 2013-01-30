@@ -38,6 +38,7 @@
 
 #include "downloader.h"
 #include "util.h"
+#include "mediaplayer.h"
 
 namespace Ui {
 class DownloaderChildWidget;

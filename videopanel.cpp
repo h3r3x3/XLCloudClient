@@ -82,7 +82,7 @@ void VideoPanel::on_playPauseButton_clicked()
         ui->mplayer->stop();
     else
     {
-        //TODO: load last video!
+        //TODO: load last video? perhaps.
         ui->mplayer->play();
     }
 }

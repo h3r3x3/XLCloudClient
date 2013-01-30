@@ -34,6 +34,7 @@ PreferencesDlg::PreferencesDlg(QWidget *parent) :
 
     settings.beginGroup("Transf0r");
     ui->storageLocation->setText(settings.value("StorageLocation", Util::getHomeLocation()).toString());
+    ui->useVoiceNotification->setChecked(settings.value("UseVoiceNotification", false).toBool());
     settings.endGroup();
 
     int cIdx = settings.value("Index").toInt();
@@ -59,12 +60,13 @@ void PreferencesDlg::on_buttonBox_accepted()
     settings.setValue("Index", ui->tabWidget->currentIndex());
     settings.setValue("User", ui->user->text());
 
-    // BUG if password too fuckin' long!
+    // BUG if password length equals 16!
     if (ui->credential->text().length() != 16)
         settings.setValue("Credential", Util::getMD5Hex(ui->credential->text()));
     settings.endGroup();
 
     settings.beginGroup("Transf0r");
+    settings.setValue("UseVoiceNotification", ui->useVoiceNotification->isChecked());
     settings.setValue("StorageLocation", ui->storageLocation->text());
     settings.endGroup();
 

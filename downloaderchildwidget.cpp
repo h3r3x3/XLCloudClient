@@ -42,16 +42,15 @@ DownloaderChildWidget::DownloaderChildWidget(QListWidgetItem *item,
     ui->openFolderLabel->setAttribute(Qt::WA_TranslucentBackground , true);
     ui->openFileLabel->setAttribute(Qt::WA_TranslucentBackground , true);
     ui->transferStatusLabel->setAttribute(Qt::WA_TranslucentBackground , true);
-    ui->label_8->setAttribute(Qt::WA_TranslucentBackground , true);
-
-    ui->label->setText(fileName);
+    ui->fileIcon->setAttribute(Qt::WA_TranslucentBackground , true);
 
     connect (&m_taskStatusRoutineTimer,
              SIGNAL(timeout()), SLOT(getCurrentTaskStatus()));
     connect (&m_Downloader, SIGNAL(taskStatusChanged(Downloader::TaskStatusX)) ,
              this , SLOT(taskStatusChanged(Downloader::TaskStatusX)));
     ///
-    ui->label_8->setPixmap(Util::getFileAttr(m_fileName).icon.pixmap(24));
+    ui->label->setText(fileName);
+    ui->fileIcon->setPixmap(Util::getFileAttr(m_fileName).icon.pixmap(24));
 
     QList<QNetworkCookie> cookies = Util::parseMozillaCookieFile(
                 QDesktopServices::storageLocation(QDesktopServices::HomeLocation)
@@ -61,13 +60,12 @@ DownloaderChildWidget::DownloaderChildWidget(QListWidgetItem *item,
     cj->setCookiesFromUrl(cookies , QUrl (m_url));
     m_Downloader.setCookieJar(cj);
 
-//    setFixedHeight(54);
-
-    m_Downloader.startDownload(m_url , m_folderName + "/" + m_fileName);
+    m_Downloader.startDownload(m_url , m_folderName + QDir::separator() + m_fileName);
 }
 
 QSize DownloaderChildWidget::sizeHint()
 {
+    // TODO: calculate dynamic height
     QSize size (QWidget::sizeHint().width(), 54);
     return size;
 }
@@ -103,10 +101,10 @@ void DownloaderChildWidget::getCurrentTaskStatus()
     QTime time (0,0,0);
 
     ui->transferStatusLabel->setText(QString ("%1/%2  %3/s  %4")
-                         .arg(Util::toReadableSize(taskInfo.transfered))
-                         .arg(Util::toReadableSize(taskInfo.total))
-                         .arg(Util::toReadableSize(taskInfo.speed))
-                         .arg(time.addSecs(taskInfo.eta).toString()));
+                                     .arg(Util::toReadableSize(taskInfo.transfered))
+                                     .arg(Util::toReadableSize(taskInfo.total))
+                                     .arg(Util::toReadableSize(taskInfo.speed))
+                                     .arg(time.addSecs(taskInfo.eta).toString()));
 
     m_percentage = taskInfo.percentage / 100;
     update ();
@@ -120,7 +118,7 @@ void DownloaderChildWidget::taskStatusChanged(Downloader::TaskStatusX ts)
         m_taskStatusRoutineTimer.stop();
         m_percentage = 100;
         ui->transferStatusLabel->setText(QString ("%1/%1 finished")
-                             .arg(Util::toReadableSize(m_Downloader.getFileSize())) );
+                                         .arg(Util::toReadableSize(m_Downloader.getFileSize())) );
         update ();
         break;
     case Downloader::Paused:

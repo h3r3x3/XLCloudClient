@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     downloader.cpp \
     downloaderchildwidget.cpp \
     saycapcha.cpp \
-    fileselectorline.cpp
+    fileselectorline.cpp \
+    mediaplayer.cpp
 
 HEADERS  += mainwindow.h \
     thundercore.h \
@@ -47,7 +48,8 @@ HEADERS  += mainwindow.h \
     downloaderchildwidget.h \
     downloader.h \
     saycapcha.h \
-    fileselectorline.h
+    fileselectorline.h \
+    mediaplayer.h
 
 FORMS    += mainwindow.ui \
     thunderpanel.ui \

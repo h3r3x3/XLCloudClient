@@ -243,6 +243,7 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
     if (urlStr.startsWith("http://dynamic.cloud.vip.xunlei.com/"
                           "interface/torrent_upload"))
     {
+        // todo: bt task editing?
 
         QByteArray json = data;
 
@@ -301,6 +302,10 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
     if (urlStr.startsWith("http://dynamic.cloud.vip.xunlei.com/interface/history_clear"))
     {
         error(tr("History emptied"), Notice);
+
+        // ERROR checking?
+
+        return;
     }
 
     qDebug() << "Unhandled reply:" << "\n----";
