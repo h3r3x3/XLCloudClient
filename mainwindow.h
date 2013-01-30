@@ -35,6 +35,7 @@
 #include "addcloudtask.h"
 #include "transf0r.h"
 #include "saycapcha.h"
+#include "osd.h"
 
 namespace Ui {
 class MainWindow;
@@ -57,6 +58,7 @@ private:
     LogView *lpanel;
     Browser *bpanel;
     Transf0r *transf0r;
+    OSD *osd;
 
 protected:
     void keyPressEvent(QKeyEvent *e);

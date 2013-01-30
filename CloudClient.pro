@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     downloaderchildwidget.cpp \
     saycapcha.cpp \
     fileselectorline.cpp \
-    mediaplayer.cpp
+    mediaplayer.cpp \
+    osd.cpp
 
 HEADERS  += mainwindow.h \
     thundercore.h \
@@ -49,7 +50,8 @@ HEADERS  += mainwindow.h \
     downloader.h \
     saycapcha.h \
     fileselectorline.h \
-    mediaplayer.h
+    mediaplayer.h \
+    osd.h
 
 FORMS    += mainwindow.ui \
     thunderpanel.ui \

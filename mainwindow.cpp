@@ -27,7 +27,8 @@ MainWindow::MainWindow(QWidget *parent) :
     vpanel(new VideoPanel (this)),
     lpanel(new LogView (this)),
     bpanel(new Browser (this)),
-    transf0r(new Transf0r (this))
+    transf0r(new Transf0r (this)),
+    osd(new OSD (this))
 {
     ui->setupUi(this);
     setWindowTitle (tr("%1 $VER %2").arg(QApplication::applicationName())
