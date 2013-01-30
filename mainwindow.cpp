@@ -51,6 +51,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (tpanel, SIGNAL(doIndirectRequest(ThunderPanel::IndirectRequestType)),
              SLOT(slotIndirectRequestReceived(ThunderPanel::IndirectRequestType)));
 
+    connect (osd, SIGNAL(doubleClicked()), SLOT(slotShowOrHideWindow()));
+
     // WILL BE REMOVED LATER!
     connect (tcore, SIGNAL(error(QString,ThunderCore::ErrorCategory)),
              SLOT(slotError(QString,ThunderCore::ErrorCategory)));
@@ -75,6 +77,11 @@ MainWindow::~MainWindow()
     sets.endGroup();
 
     delete ui;
+}
+
+void MainWindow::slotShowOrHideWindow()
+{
+    setVisible(! isVisible());
 }
 
 void MainWindow::login()

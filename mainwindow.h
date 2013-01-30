@@ -71,6 +71,8 @@ private slots:
                               ThunderPanel::RequestType type);
     void slotIndirectRequestReceived (ThunderPanel::IndirectRequestType type);
 
+    void slotShowOrHideWindow ();
+
     void slotSettingsChanged ();
     void login ();
 

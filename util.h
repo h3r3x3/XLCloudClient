@@ -64,9 +64,10 @@ public:
     /*!
      * \brief Return file attribute and icon
      * \param fileName
+     * \param If target is a folder
      * \return
      */
-    static Thunder::File getFileAttr (const QString & fileName);
+    static Thunder::File getFileAttr (const QString & fileName, bool isFolder = false);
 
     /*!
      * \brief Parse function fields, i.e queryCid('', '', 0, 'Movie')

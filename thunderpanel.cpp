@@ -161,7 +161,8 @@ void ThunderPanel::setCloudTasks(const QList<Thunder::Task> &tasks)
 
         my_model->appendRow(items);
 
-        items.first()->setIcon(Util::getFileAttr(task.name).icon);
+        items.first()->setIcon(Util::getFileAttr(task.name,
+                                                 task.type == Thunder::BT).icon);
 
         items.first()->setData(task.link,   Qt::UserRole + OFFSET_DOWNLOAD);
         items.first()->setData(task.id,     Qt::UserRole + OFFSET_TASKID);

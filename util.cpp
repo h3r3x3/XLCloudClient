@@ -64,6 +64,8 @@ void Util::init()
     static_iconMapping.insert("tif", ":/resources/images/image.png");
     static_iconMapping.insert("tiff", ":/resources/images/image.png");
     static_iconMapping.insert("bmp", ":/resources/images/image.png");
+
+    static_iconMapping.insert("folder", ":/resources/images/bt.png");
 }
 
 QString Util::getMD5Hex(const QString &pass)
@@ -151,7 +153,7 @@ QString Util::getEncryptedPassword(const QString &pass,
                 QCryptographicHash::Md5 ).toHex();
 }
 
-Thunder::File Util::getFileAttr(const QString &fileName)
+Thunder::File Util::getFileAttr (const QString &fileName, bool isFolder)
 {
     Thunder::File file;
     int idx = fileName.lastIndexOf(".");
@@ -162,6 +164,9 @@ Thunder::File Util::getFileAttr(const QString &fileName)
                                file.extension.toLower(),
                                ":/resources/images/exe.png"));
     }
+
+    if (isFolder)
+        file.icon = QIcon (static_iconMapping.value("folder"));
 
     return file;
 }

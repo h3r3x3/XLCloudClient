@@ -376,6 +376,7 @@ void ThunderCore::parseCloudPage(const QByteArray &body)
 
         Thunder::Task task;
         task.id = div.attribute("taskid");
+        task.type = Thunder::Single;
 
         foreach (const QWebElement & input, div.findAll("input"))
         {
@@ -390,7 +391,11 @@ void ThunderCore::parseCloudPage(const QByteArray &body)
         }
 
         if (! task.isEmpty())
+        {
+            if (task.bt_url.startsWith("bt://"))
+                task.type = Thunder::BT;
             tc_cloudTasks.push_back(task);
+        }
     }
 
     error (tr("%1 task(s) loaded.").arg(tc_cloudTasks.size()), Notice);
