@@ -91,6 +91,15 @@ public:
     static QByteArray readWholeFile (const QString & file);
 
     /*!
+     * \brief Write a file
+     * \param file
+     * \param data
+     * \return
+     */
+    static bool writeFile (const QString & file,
+                           const QByteArray & data);
+
+    /*!
      * \brief Generate random alpha number string
      * \param len
      * \return

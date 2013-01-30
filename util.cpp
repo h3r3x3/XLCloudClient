@@ -153,6 +153,15 @@ QString Util::getEncryptedPassword(const QString &pass,
                 QCryptographicHash::Md5 ).toHex();
 }
 
+bool Util::writeFile(const QString &file, const QByteArray &data)
+{
+    QFile fp (file);
+    if (fp.open(QIODevice::WriteOnly))
+        fp.write(data);
+
+    return fp.isOpen();
+}
+
 Thunder::File Util::getFileAttr (const QString &fileName, bool isFolder)
 {
     Thunder::File file;

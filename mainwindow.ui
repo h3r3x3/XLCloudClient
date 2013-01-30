@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>627</width>
-    <height>339</height>
+    <width>625</width>
+    <height>337</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>627</width>
+     <width>625</width>
      <height>21</height>
     </rect>
    </property>
@@ -38,7 +38,7 @@
      <string>F&amp;ile</string>
     </property>
     <addaction name="actionNewTask"/>
-    <addaction name="actionE_xport"/>
+    <addaction name="actionExportTasks"/>
     <addaction name="separator"/>
     <addaction name="actionQ_uit"/>
    </widget>
@@ -71,7 +71,7 @@
     <string>About Qt</string>
    </property>
   </action>
-  <action name="actionE_xport">
+  <action name="actionExportTasks">
    <property name="text">
     <string>E&amp;xport</string>
    </property>

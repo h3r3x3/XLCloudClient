@@ -219,3 +219,35 @@ void MainWindow::on_actionNewTask_triggered()
     AddCloudTask *act = new AddCloudTask (tcore, this);
     act->exec();
 }
+
+void MainWindow::on_actionExportTasks_triggered()
+{
+    const QString & file =
+            QFileDialog::getSaveFileName(this,
+                                         tr("Save task list to"),
+                                         Util::getHomeLocation(),
+                                         tr("Text files (*.txt);;All Files(*.*)"));
+    if (file.isEmpty()) return;
+
+    QByteArray data;
+    const QList<Thunder::Task> & cloudTasks = tcore->getCloudTasks();
+    foreach (const Thunder::Task & task, cloudTasks)
+    {
+        data.append(task.source.toAscii()).append("\n");
+    }
+
+    bool ok = Util::writeFile(file, data);
+    if (ok)
+    {
+        QMessageBox::information(this, tr("Task exported successfully"),
+                                 tr("Exported %1 urls.").arg(cloudTasks.size()),
+                                 QMessageBox::Ok);
+    }
+    else
+    {
+        QMessageBox::warning(this,
+                             tr("Can't export task list"),
+                             tr("Something's wrong with the file you chosen."),
+                             QMessageBox::Ok);
+    }
+}

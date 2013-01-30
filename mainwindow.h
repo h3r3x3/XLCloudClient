@@ -85,6 +85,7 @@ private slots:
     void on_actionQ_uit_triggered();
     void on_actionAboutQt_triggered();
     void on_actionNewTask_triggered();
+    void on_actionExportTasks_triggered();
 };
 
 #endif // MAINWINDOW_H
