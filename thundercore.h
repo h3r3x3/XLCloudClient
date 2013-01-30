@@ -107,6 +107,8 @@ public:
     Thunder::BitorrentTask getUploadedBTTasks();
 
     void cleanupHistory ();
+
+    void loginWithCapcha (const QByteArray & capcha);
     
 signals:
     void error (const QString & body, ThunderCore::ErrorCategory category);
@@ -135,8 +137,6 @@ private:
     QHash<QString, QString> tc_session;
     LoginStatus tc_loginStatus;
     QByteArray tc_capcha;
-
-    void loginWithCapcha (const QByteArray & capcha);
     
     QNetworkAccessManager *tc_nam;
     void get (const QUrl & url);

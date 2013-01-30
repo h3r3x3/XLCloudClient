@@ -161,10 +161,9 @@ void MainWindow::slotStatusChanged(ThunderCore::ChangeType type)
     {
         SayCapcha *sayCapcha = new SayCapcha (this);
         sayCapcha->setImage(tcore->getCapchaCode());
-        connect (sayCapcha, SIGNAL(capchaReady(QString)),
-                 tcore, SLOT(setCapcha(QString)));
-
         sayCapcha->exec();
+
+        tcore->loginWithCapcha(sayCapcha->getCapcha().toAscii());
     }
         break;
     default:

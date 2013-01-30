@@ -350,7 +350,7 @@ void ThunderCore::parseCloudPage(const QByteArray &body)
     page.settings()->setAttribute(QWebSettings::AutoLoadImages, false);
 
     page.mainFrame()->setHtml(QString::fromUtf8(body));
-    tc_session.clear();
+//    tc_session.clear();
 
     /// FIND gdriveid
     foreach (const QWebElement & input, page.mainFrame()->findAllElements("input"))
@@ -362,7 +362,8 @@ void ThunderCore::parseCloudPage(const QByteArray &body)
 
     if (! tc_session.contains("gdriveid"))
     {
-        error (tr("Broken page! No gdrive id found, you will not be able to initiate any file transfer! "), Warning);
+        error (tr("Broken page! No gdrive id found, "
+                  "you will not be able to initiate any file transfer! "), Warning);
         return;
     }
 

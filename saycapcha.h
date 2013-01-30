@@ -37,12 +37,11 @@ public:
 
     void setImage (const QByteArray & data);
 
+    // WTF? signals doesn't work!
+    QString getCapcha ();
+
 private slots:
     void on_code_returnPressed();
-
-    void on_buttonBox_accepted();
-
-    void on_buttonBox_rejected();
 
 signals:
     void capchaReady (const QString & capcha);
