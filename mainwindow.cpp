@@ -41,6 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tabWidget->addTab(lpanel, "Log");
     ui->tabWidget->addTab(transf0r, "Transf0r");
 
+    ///
     connect (tcore, SIGNAL(StatusChanged(ThunderCore::ChangeType)),
              SLOT(slotStatusChanged(ThunderCore::ChangeType)));
     connect (tcore, SIGNAL(error(QString,ThunderCore::ErrorCategory)),
@@ -191,8 +192,11 @@ void MainWindow::slotError(const QString &body, ThunderCore::ErrorCategory categ
 
 void MainWindow::on_actionAboutAuthor_triggered()
 {
-    QMessageBox::about(this, QApplication::applicationName(), tr("Xunlei (迅雷) VIP Cloud client<br/><br/>Written by <b>Aaron Lewis</b>"
-                                                                 " (the.warl0ck.1989@gmail.com)"));
+    QMessageBox::about(this,
+                       QApplication::applicationName(),
+                       tr("Xunlei VIP Cloud client<br/><br/>"
+                          "Written by <b>Aaron Lewis</b>"
+                          " (the.warl0ck.1989@gmail.com)"));
 }
 
 void MainWindow::slotSettingsChanged ()
