@@ -3,8 +3,11 @@
 迅雷离线的漏洞太多了，当然本程序并不利用安全漏洞. 
 其实还是利用了，只不过官方不认同这个是漏洞罢了 ;-(
 
-## 注意：**老版本**的功能会逐渐添加回来（翻墙自己看）
-<a href="http://c0debreak.blogspot.com/2012/03/thunder-vip-cloud-client-for-linux-by.html"></a>
+## 注意
+
+**老版本**的功能会逐渐添加回来（翻墙自己看）
+
+    http://c0debreak.blogspot.com/2012/03/thunder-vip-cloud-client-for-linux-by.html
 
 ## 使用方法：
 
