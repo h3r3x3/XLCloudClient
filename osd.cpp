@@ -4,9 +4,9 @@ OSD::OSD(QWidget *parent) :
     QWidget(parent, Qt::Window |
             Qt::X11BypassWindowManagerHint |
             Qt::FramelessWindowHint),
+    osd_menu (new QMenu (this)),
     m_dragging(false),
     osd_interr (false),
-    osd_menu (new QMenu (this)),
     osd_idx (0),
     // 200k
     osd_maxSpeed (200 * 1024)

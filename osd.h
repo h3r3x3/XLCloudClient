@@ -41,6 +41,8 @@ public:
 
     void setText (const QString & text);
 
+    QMenu *osd_menu;
+
 protected:
     void dragEnterEvent(QDragEnterEvent *e);
     void paintEvent(QPaintEvent *);
@@ -61,8 +63,6 @@ private:
     int m_screen;
     QPoint m_position;
     bool osd_interr;
-
-    QMenu *osd_menu;
 
     static const int s_outerMargin = 15;
     QPoint fixupPosition( const QPoint& p );

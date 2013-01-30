@@ -58,6 +58,11 @@ MainWindow::MainWindow(QWidget *parent) :
              SLOT(slotError(QString,ThunderCore::ErrorCategory)));
 
     ///
+    osd->osd_menu->addAction(ui->actionNewTask);
+    osd->osd_menu->addSeparator();
+    osd->osd_menu->addAction(ui->actionQ_uit);
+
+    ///
     {
         QSettings settings;
         settings.beginGroup("UI");
@@ -216,6 +221,9 @@ void MainWindow::on_actionAboutQt_triggered()
 
 void MainWindow::on_actionNewTask_triggered()
 {
+    // mandatory
+    show ();
+
     AddCloudTask *act = new AddCloudTask (tcore, this);
     act->exec();
 }
