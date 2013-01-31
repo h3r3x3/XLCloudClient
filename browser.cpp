@@ -24,25 +24,13 @@ Browser::Browser(QWidget *parent) :
     ui(new Ui::Browser)
 {
     ui->setupUi(this);
+    ui->url->setWebView(ui->webView);
+    ui->loading->setMovie(new QMovie (":/resources/images/loading.gif"));
 }
 
 Browser::~Browser()
 {
     delete ui;
-}
-
-void Browser::on_url_returnPressed()
-{
-    QString url = ui->url->text();
-    if (! url.startsWith("http://"))
-        url.prepend("http://");
-
-    ui->webView->load(url);
-}
-
-void Browser::on_webView_urlChanged(const QUrl &arg1)
-{
-    ui->url->setText(arg1.toString());
 }
 
 void Browser::on_reload_clicked()
@@ -66,18 +54,15 @@ void Browser::on_webView_linkClicked(const QUrl &arg1)
     ui->webView->load(arg1);
 }
 
-void Browser::on_search_returnPressed()
+void Browser::on_webView_loadStarted()
 {
-    switch (ui->comboBox->currentIndex())
-    {
-    case 0:
-        ui->webView->load(QString("http://www.verycd.com/search/entries/%1")
-                          .arg(ui->search->text()));
-        break;
-    case 1:
-        ui->webView->load(QString("http://yyets.com/?mod=2&ac=search_result"
-                                  "&op=normal&class=all&keyword=%1")
-                          .arg(ui->search->text()));
-        break;
-    }
+    ui->loading->show();
+    ui->loading->movie()->start();
+}
+
+void Browser::on_webView_loadFinished(bool arg1)
+{
+    Q_UNUSED(arg1);
+    ui->loading->hide();
+    ui->loading->movie()->stop();
 }

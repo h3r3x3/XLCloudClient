@@ -20,6 +20,7 @@
 #define BROWSER_H
 
 #include <QWidget>
+#include <QMovie>
 #include <QUrl>
 #include <QDebug>
 
@@ -36,16 +37,15 @@ public:
     ~Browser();
     
 private slots:
-    void on_url_returnPressed();
-    void on_webView_urlChanged(const QUrl &arg1);
     void on_reload_clicked();
 
     void on_fwd_clicked();
     void on_stop_clicked();
 
     void on_webView_linkClicked(const QUrl &arg1);
+    void on_webView_loadStarted();
 
-    void on_search_returnPressed();
+    void on_webView_loadFinished(bool arg1);
 
 private:
     Ui::Browser *ui;

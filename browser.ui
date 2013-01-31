@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>516</width>
-    <height>482</height>
+    <width>512</width>
+    <height>478</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -85,56 +85,24 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="url"/>
+      <widget class="UrlLineEdit" name="url" native="true"/>
      </item>
      <item>
-      <widget class="QProgressBar" name="progressBar">
-       <property name="maximumSize">
-        <size>
-         <width>50</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="comboBox">
-       <item>
-        <property name="text">
-         <string>VeryCD</string>
-        </property>
-        <property name="icon">
-         <iconset resource="resources.qrc">
-          <normaloff>:/resources/images/amule_mugen.png</normaloff>:/resources/images/amule_mugen.png</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>YYeTS</string>
-        </property>
-        <property name="icon">
-         <iconset resource="resources.qrc">
-          <normaloff>:/resources/images/yyets.png</normaloff>:/resources/images/yyets.png</iconset>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="search">
+      <widget class="QLabel" name="loading">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="maximumSize">
+       <property name="baseSize">
         <size>
-         <width>100</width>
-         <height>16777215</height>
+         <width>24</width>
+         <height>24</height>
         </size>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>
@@ -157,26 +125,14 @@
    <extends>QWidget</extends>
    <header>QtWebKit/QWebView</header>
   </customwidget>
+  <customwidget>
+   <class>UrlLineEdit</class>
+   <extends>QWidget</extends>
+   <header>urllineedit.h</header>
+  </customwidget>
  </customwidgets>
  <resources>
   <include location="resources.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>webView</sender>
-   <signal>loadProgress(int)</signal>
-   <receiver>progressBar</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>258</x>
-     <y>258</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>272</x>
-     <y>18</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

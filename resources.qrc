@@ -62,5 +62,6 @@
         <file>resources/images/open.png</file>
         <file>resources/images/text-field.png</file>
         <file>resources/images/vcs-added.png</file>
+        <file>resources/images/defaulticon.png</file>
     </qresource>
 </RCC>

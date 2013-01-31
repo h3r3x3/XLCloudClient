@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     saycapcha.cpp \
     fileselectorline.cpp \
     mediaplayer.cpp \
-    osd.cpp
+    osd.cpp \
+    urllineedit.cpp
 
 HEADERS  += mainwindow.h \
     thundercore.h \
@@ -51,7 +52,8 @@ HEADERS  += mainwindow.h \
     saycapcha.h \
     fileselectorline.h \
     mediaplayer.h \
-    osd.h
+    osd.h \
+    urllineedit.h
 
 FORMS    += mainwindow.ui \
     thunderpanel.ui \
