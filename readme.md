@@ -9,6 +9,8 @@
 
     http://c0debreak.blogspot.com/2012/03/thunder-vip-cloud-client-for-linux-by.html
 
+**不必担心，本人会一直维护这个程序.**
+
 ## 使用方法：
 
 首先在Preferences里面设置你的用户名和密码，密码明文输入，保存md5.

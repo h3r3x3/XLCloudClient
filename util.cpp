@@ -52,6 +52,9 @@ void Util::init()
     static_iconMapping.insert("rar", ":/resources/images/rar.png");
     static_iconMapping.insert("tar", ":/resources/images/rar.png");
     static_iconMapping.insert("bz2", ":/resources/images/rar.png");
+    static_iconMapping.insert("gz", ":/resources/images/rar.png");
+    static_iconMapping.insert("iso", ":/resources/images/rar.png");
+    static_iconMapping.insert("img", ":/resources/images/rar.png");
     static_iconMapping.insert("xz", ":/resources/images/rar.png");
     static_iconMapping.insert("zip", ":/resources/images/rar.png");
     static_iconMapping.insert("7z", ":/resources/images/rar.png");
