@@ -30,6 +30,12 @@ QString Util::getHomeLocation()
 
 void Util::init()
 {
+    // not good design. @TODO
+    static_autoOpenMapping.insert("mkv", Thunder::Video);
+    static_autoOpenMapping.insert("pdf", Thunder::Document);
+    static_autoOpenMapping.insert("chm", Thunder::Document);
+
+    ///
     static_iconMapping.insert("avi", ":/resources/images/movie.png");
     static_iconMapping.insert("mp4", ":/resources/images/movie.png");
     static_iconMapping.insert("mkv", ":/resources/images/movie.png");
@@ -69,6 +75,17 @@ void Util::init()
     static_iconMapping.insert("bmp", ":/resources/images/image.png");
 
     static_iconMapping.insert("folder", ":/resources/images/bt.png");
+}
+
+Thunder::AutoOpen Util::shouldAutoOpen (const QString &fileName)
+{
+    int idx = fileName.lastIndexOf(".");
+    if (idx != -1)
+    {
+        return static_autoOpenMapping.value(fileName.mid(idx + 1), Thunder::Never);
+    }
+
+    return Thunder::Never;
 }
 
 QString Util::getMD5Hex(const QString &pass)

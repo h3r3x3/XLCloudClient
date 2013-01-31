@@ -62,7 +62,9 @@ public:
     Thunder::RemoteTask getFirstSelectedTask ();
     
 signals:
-    void doThisLink (const Thunder::RemoteTask & task, ThunderPanel::RequestType type);
+    void doThisLink (const Thunder::RemoteTask & task,
+                     ThunderPanel::RequestType type,
+                     bool autoOpen);
     void doIndirectRequest (ThunderPanel::IndirectRequestType type);
 
 private:
@@ -83,6 +85,7 @@ private slots:
 
     void slotCopyDownloadAddress ();
     void slotCopySourceAddress ();
+    void on_tableView_doubleClicked(const QModelIndex &index);
 };
 
 #endif // THUNDERPANEL_H

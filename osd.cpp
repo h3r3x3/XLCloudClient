@@ -21,11 +21,17 @@ OSD::OSD(QWidget *parent) :
     move (desktop->width() - 100, 30);
 
     show ();
+
+    QSettings settings;
+    settings.beginGroup("OSD");
+    restoreGeometry(settings.value("Geometry").toByteArray());
 }
 
 OSD::~OSD()
 {
-
+    QSettings settings;
+    settings.beginGroup("OSD");
+    settings.setValue("Geometry", saveGeometry());
 }
 
 void OSD::setText(const QString &text)

@@ -38,7 +38,7 @@ public:
     ~Transf0r();
 
     void setStoragePath (const QString & path);
-    void addCloudTask (const Thunder::RemoteTask & taskInfo);
+    void addCloudTask (const Thunder::RemoteTask & taskInfo, bool autoOpen = false);
     
 private slots:
     void slotItemCanDelete (int id);

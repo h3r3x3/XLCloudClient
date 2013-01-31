@@ -33,6 +33,8 @@
 
 static QHash<QString, QString> static_iconMapping;
 
+static QHash<QString, Thunder::AutoOpen> static_autoOpenMapping;
+
 class Util : public QObject
 {
     Q_OBJECT
@@ -111,6 +113,13 @@ public:
      * \return
      */
     static QString getHomeLocation ();
+
+    /*!
+     * \brief Should file be handled automatically upon transfer complete
+     * \param fileName
+     * \return
+     */
+    static Thunder::AutoOpen shouldAutoOpen (const QString & fileName);
     
 signals:
     

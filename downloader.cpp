@@ -27,9 +27,9 @@ Downloader::Downloader(QObject *parent):
     QObject (parent) ,
     running (false),
     requestShutdown (false),
-    downBufferSize ( 3*1024*1024 )
+    downBufferSize ( 3*1024*1024 ),
+    nam (new QNetworkAccessManager (this))
 {
-    nam = new QNetworkAccessManager (this);
     connect ( &speedTimer , SIGNAL(timeout()) , SLOT(calcSpeed()) );
     connect ( &logSaveTimer , SIGNAL(timeout()) , SLOT(saveLog()) );
 }
@@ -93,7 +93,7 @@ void Downloader::finishedSize ()
     if ( ! redirectionTarget.isNull() )
     {
 //        emit taskUrlRedir( reply->url().toString() , redirectionTarget.toUrl().toString() );
-        qDebug() << "Redir: " << redirectionTarget.toUrl().toString();
+        qDebug() << "Redirected to: " << redirectionTarget.toUrl().toString();
 
         // retrieve file size firstly
         QNetworkRequest request ( redirectionTarget.toUrl() );

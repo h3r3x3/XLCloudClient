@@ -60,6 +60,7 @@ public:
 
     QString m_fileName, m_folderName, m_url;
     double m_percentage;
+    bool m_autoOpen;
     QListWidgetItem *m_item; // row in list widget
 
     QSize sizeHint();

@@ -47,8 +47,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (tcore, SIGNAL(error(QString,ThunderCore::ErrorCategory)),
              lpanel, SLOT(logReceived(QString,ThunderCore::ErrorCategory)));
 
-    connect (tpanel, SIGNAL(doThisLink(Thunder::RemoteTask,ThunderPanel::RequestType)),
-             SLOT(slotRequestReceived(Thunder::RemoteTask,ThunderPanel::RequestType)));
+    connect (tpanel, SIGNAL(doThisLink(Thunder::RemoteTask,
+                                       ThunderPanel::RequestType,bool)),
+             SLOT(slotRequestReceived(Thunder::RemoteTask,
+                                      ThunderPanel::RequestType,bool)));
+
     connect (tpanel, SIGNAL(doIndirectRequest(ThunderPanel::IndirectRequestType)),
              SLOT(slotIndirectRequestReceived(ThunderPanel::IndirectRequestType)));
 
@@ -121,7 +124,8 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 }
 
 void MainWindow::slotRequestReceived(const Thunder::RemoteTask &task,
-                                     ThunderPanel::RequestType type)
+                                     ThunderPanel::RequestType type,
+                                     bool autoOpen)
 {
     switch (type)
     {
@@ -130,7 +134,7 @@ void MainWindow::slotRequestReceived(const Thunder::RemoteTask &task,
         ui->tabWidget->setCurrentIndex(1);
         break;
     case ThunderPanel::Download:
-        transf0r->addCloudTask(task);
+        transf0r->addCloudTask(task, autoOpen);
         break;
     default:
         Q_ASSERT(false);

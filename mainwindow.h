@@ -68,7 +68,8 @@ private slots:
     void slotStatusChanged (ThunderCore::ChangeType type);
 
     void slotRequestReceived (const Thunder::RemoteTask & task,
-                              ThunderPanel::RequestType type);
+                              ThunderPanel::RequestType type,
+                              bool autoOpen);
     void slotIndirectRequestReceived (ThunderPanel::IndirectRequestType type);
 
     void slotShowOrHideWindow ();

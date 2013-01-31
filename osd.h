@@ -13,6 +13,7 @@
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QContextMenuEvent>
+#include <QSettings>
 
 class OSD : public QWidget
 {

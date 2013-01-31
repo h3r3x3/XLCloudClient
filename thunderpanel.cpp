@@ -82,7 +82,7 @@ void ThunderPanel::slotDownloadThisTask()
 {
     const QString & url = getUserDataByOffset(OFFSET_DOWNLOAD);
     if (url.isEmpty()) return;
-    emit doThisLink(getFirstSelectedTask(), Download);
+    emit doThisLink(getFirstSelectedTask(), Download, false);
 }
 
 void ThunderPanel::slotRemoveTheseTasks()
@@ -94,7 +94,7 @@ void ThunderPanel::slotPreviewThisTask()
 {
     const QString & url = getUserDataByOffset(OFFSET_DOWNLOAD);
     if (url.isEmpty()) return;
-    emit doThisLink(getFirstSelectedTask(), Preview);
+    emit doThisLink(getFirstSelectedTask(), Preview, false);
 }
 
 Thunder::RemoteTask ThunderPanel::getFirstSelectedTask ()
@@ -174,4 +174,21 @@ void ThunderPanel::setCloudTasks(const QList<Thunder::Task> &tasks)
     }
 
     ui->tableView->resizeColumnToContents(0);
+}
+
+void ThunderPanel::on_tableView_doubleClicked(const QModelIndex &index)
+{
+    const Thunder::RemoteTask & task = getFirstSelectedTask ();
+    switch (Util::shouldAutoOpen(task.name))
+    {
+    case Thunder::Never:
+        break;
+    case Thunder::Video:
+        emit doThisLink(task, Preview, false);
+        break;
+    case Thunder::Document:
+        emit doThisLink(task, Download, true);
+        break;
+    }
+
 }

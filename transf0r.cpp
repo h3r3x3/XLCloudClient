@@ -32,7 +32,7 @@ Transf0r::~Transf0r()
     delete ui;
 }
 
-void Transf0r::addCloudTask(const Thunder::RemoteTask &taskInfo)
+void Transf0r::addCloudTask(const Thunder::RemoteTask &taskInfo, bool autoOpen)
 {
     QListWidgetItem *item = new QListWidgetItem;
     ui->listWidget->addItem(item);
@@ -41,6 +41,8 @@ void Transf0r::addCloudTask(const Thunder::RemoteTask &taskInfo)
                                                            taskInfo.url,
                                                            taskInfo.name,
                                                            my_storagePath, this);
+    cw->m_autoOpen = autoOpen;
+
     connect(cw, SIGNAL(ItemDeleted(int)), SLOT(slotItemCanDelete(int)));
 
     item->setSizeHint(cw->sizeHint());

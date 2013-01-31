@@ -30,6 +30,7 @@ DownloaderChildWidget::DownloaderChildWidget(QListWidgetItem *item,
     m_folderName(folderName),
     m_url(downloadUrl),
     m_percentage (1),
+    m_autoOpen (false),
     m_item(item),
     ui(new Ui::DownloaderChildWidget)
 {
@@ -79,6 +80,11 @@ void DownloaderChildWidget::mouseDoubleClickEvent(QMouseEvent *)
 {
     if ( (int)m_percentage == 100 )
     {
+        if (m_autoOpen)
+        {
+            QDesktopServices::openUrl(m_folderName + QDir::separator() + m_fileName);
+        }
+
         on_openFileLabel_linkActivated("");
         return;
     }

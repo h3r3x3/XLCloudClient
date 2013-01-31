@@ -32,6 +32,17 @@ namespace Thunder
         Garbage
     };
 
+    enum AutoOpen
+    {
+        Never,
+
+        // preview directly
+        Video,
+
+        // download + open
+        Document
+    };
+
     struct RemoteTask
     {
         QString name;
