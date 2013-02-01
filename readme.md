@@ -18,8 +18,7 @@
 
 ## 截图:
 
-目前BT任务可以添加，至于如何展示，还没有完全确定呢：
-(做成树？)
+目前BT任务可以添加，而且你可以同时查看所有的BT任务，这一点官方是没有实现的：
 
 ![Screenshot] (https://raw.github.com/CaledoniaProject/XLCloudClient/master/contrib/screenshot/1.png "Desktop screenshot")
 
