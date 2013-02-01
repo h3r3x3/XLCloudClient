@@ -57,14 +57,14 @@ ThunderPanel::ThunderPanel(QWidget *parent) :
     connect (action, SIGNAL(triggered()), SLOT(slotCopySourceAddress()));
     my_contextMenu->addAction(action);
 
-    connect (ui->tableView, SIGNAL(customContextMenuRequested(QPoint)),
+    connect (ui->treeView, SIGNAL(customContextMenuRequested(QPoint)),
              SLOT(slotShowContextMenu(QPoint)));
 
     my_model->setHorizontalHeaderLabels(QStringList()
                                         << tr("Size")
                                         << tr("Name"));
-    ui->tableView->setModel(my_model);
-    ui->tableView->resizeColumnToContents(0);
+    ui->treeView->setModel(my_model);
+    ui->treeView->resizeColumnToContents(0);
 }
 
 ThunderPanel::~ThunderPanel()
@@ -101,7 +101,7 @@ Thunder::RemoteTask ThunderPanel::getFirstSelectedTask ()
 {
     Thunder::RemoteTask task;
 
-    int row = ui->tableView->currentIndex().row();
+    int row = ui->treeView->currentIndex().row();
     const QModelIndex & idx = my_model->index(row, 0);
     const QModelIndex & idx2 = my_model->index(row, 1);
 
@@ -116,7 +116,7 @@ Thunder::RemoteTask ThunderPanel::getFirstSelectedTask ()
 
 QString ThunderPanel::getUserDataByOffset (unsigned long long offset, int row)
 {
-    if (row == -1) row = ui->tableView->currentIndex().row();
+    if (row == -1) row = ui->treeView->currentIndex().row();
     const QModelIndex & idx = my_model->index(row, 0);
     if (idx.isValid())
         return my_model->data(idx, Qt::UserRole + offset).toString();
@@ -128,7 +128,7 @@ QStringList ThunderPanel::getSelectedTaskIDs()
     QStringList result;
 
     foreach (const QModelIndex & idx,
-             ui->tableView->selectionModel()->selectedIndexes())
+             ui->treeView->selectionModel()->selectedIndexes())
         if (idx.column() == 0)
         {
             result.append(getUserDataByOffset(OFFSET_TASKID, idx.row()));
@@ -149,9 +149,36 @@ void ThunderPanel::slotCopySourceAddress()
     clipboard->setText(getUserDataByOffset(OFFSET_SOURCE));
 }
 
+void ThunderPanel::setBTSubTask(const Thunder::BitorrentTask &task)
+{
+    if (! my_BTSubTaskMapping.contains(task.taskid))
+    {
+        qDebug() << "Mismatch: " << task.taskid;
+        return;
+    }
+
+    foreach (const Thunder::BTSubTask & subtask, task.subtasks)
+    {
+        QList<QStandardItem*> items = QList<QStandardItem*>()
+                << new QStandardItem (subtask.format_size)
+                << new QStandardItem (subtask.name);
+
+        items.first()->setIcon(Util::getFileAttr(subtask.name, false).icon);
+
+        items.first()->setData(subtask.link,   Qt::UserRole + OFFSET_DOWNLOAD);
+        items.first()->setData(subtask.id,     Qt::UserRole + OFFSET_TASKID);
+
+        for (int i = 0; i < items.size(); ++i)
+            items.at(i)->setTextAlignment(Qt::AlignCenter);
+
+        my_BTSubTaskMapping.value(task.taskid)->appendRow(items);
+    }
+}
+
 void ThunderPanel::setCloudTasks(const QList<Thunder::Task> &tasks)
 {
     my_model->setRowCount(0);
+    my_BTSubTaskMapping.clear();
 
     foreach (const Thunder::Task & task, tasks)
     {
@@ -171,12 +198,17 @@ void ThunderPanel::setCloudTasks(const QList<Thunder::Task> &tasks)
 
         for (int i = 0; i < items.size(); ++i)
             items.at(i)->setTextAlignment(Qt::AlignCenter);
+
+        if (task.type == Thunder::BT)
+        {
+            my_BTSubTaskMapping.insert(task.id, items.first());
+        }
     }
 
-    ui->tableView->resizeColumnToContents(0);
+    ui->treeView->resizeColumnToContents(0);
 }
 
-void ThunderPanel::on_tableView_doubleClicked(const QModelIndex &index)
+void ThunderPanel::on_treeView_doubleClicked(const QModelIndex &index)
 {
     Q_UNUSED(index);
 

@@ -22,6 +22,7 @@
 #include <QWidget>
 #include <QStandardItemModel>
 #include <QMenu>
+#include <QHash>
 #include <QAction>
 #include <QCursor>
 #include <QApplication>
@@ -57,9 +58,12 @@ public:
     ~ThunderPanel();
 
     void setCloudTasks (const QList<Thunder::Task> & tasks);
-    QStringList getSelectedTaskIDs ();
 
+    QStringList getSelectedTaskIDs ();
     Thunder::RemoteTask getFirstSelectedTask ();
+
+public slots:
+    void setBTSubTask (const Thunder::BitorrentTask & task);
     
 signals:
     void doThisLink (const Thunder::RemoteTask & task,
@@ -69,6 +73,11 @@ signals:
 
 private:
     Ui::ThunderPanel *ui;
+
+    /*!
+     * \brief Mapping between task id and sub tasks of a BT task
+     */
+    QHash<QString, QStandardItem*> my_BTSubTaskMapping;
 
     QStandardItemModel *my_model;
     QString getUserDataByOffset (unsigned long long offset, int row = -1);
@@ -85,7 +94,7 @@ private slots:
 
     void slotCopyDownloadAddress ();
     void slotCopySourceAddress ();
-    void on_tableView_doubleClicked(const QModelIndex &index);
+    void on_treeView_doubleClicked(const QModelIndex &index);
 };
 
 #endif // THUNDERPANEL_H

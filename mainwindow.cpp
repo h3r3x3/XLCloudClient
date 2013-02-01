@@ -47,6 +47,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (tcore, SIGNAL(error(QString,ThunderCore::ErrorCategory)),
              lpanel, SLOT(logReceived(QString,ThunderCore::ErrorCategory)));
 
+    connect (tcore, SIGNAL(BTSubTaskReady(Thunder::BitorrentTask)),
+             tpanel, SLOT(setBTSubTask(Thunder::BitorrentTask)));
+
     connect (tpanel, SIGNAL(doThisLink(Thunder::RemoteTask,
                                        ThunderPanel::RequestType,bool)),
              SLOT(slotRequestReceived(Thunder::RemoteTask,
@@ -110,6 +113,12 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
     switch (e->modifiers())
     {
     case Qt::CTRL:
+        switch (e->key())
+        {
+        case Qt::Key_R:
+            break;
+        }
+
         break;
     case Qt::ALT:
         if (e->key() >= Qt::Key_1 && e->key() <= Qt::Key_9)
@@ -172,7 +181,16 @@ void MainWindow::slotStatusChanged(ThunderCore::ChangeType type)
     case ThunderCore::LoginChanged:
         break;
     case ThunderCore::TaskChanged:
-        tpanel->setCloudTasks(tcore->getCloudTasks());
+    {
+        const QList<Thunder::Task> & cloudTasks = tcore->getCloudTasks();
+        tpanel->setCloudTasks(cloudTasks);
+
+        foreach (const Thunder::Task & task, cloudTasks)
+            if (task.type == Thunder::BT)
+            {
+                tcore->getContentsOfBTFolder(task);
+            }
+    }
         break;
     case ThunderCore::CapchaReady:
     {

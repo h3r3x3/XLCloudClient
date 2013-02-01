@@ -58,6 +58,7 @@ namespace Thunder
         QString name;
         QString size;
         QString format_size;
+        QString link;
     };
 
     struct BitorrentTask

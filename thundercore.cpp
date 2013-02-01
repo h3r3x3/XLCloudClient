@@ -88,11 +88,11 @@ void ThunderCore::loginWithCapcha(const QByteArray &capcha)
               tc_passwd, QString::fromAscii(capcha), true).toAscii());
 }
 
-void ThunderCore::getContentsOfBTFolder(const Thunder::BitorrentTask &bt_task)
+void ThunderCore::getContentsOfBTFolder(const Thunder::Task &bt_task)
 {
     get ("http://dynamic.cloud.vip.xunlei.com/interface/fill_bt_list"
-         "?callback=a&g_net=1&p=1&noCacheIE=1328405858893&infoid=" + bt_task.infoid +
-         "&tid=" + bt_task.taskid +
+         "?callback=a&g_net=1&p=1&noCacheIE=1328405858893&infoid=" + bt_task.cid +
+         "&tid=" + bt_task.id +
          "&uid=" + tc_session.value("userid"));
 }
 
@@ -252,7 +252,6 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
                           "interface/torrent_upload"))
     {
         // todo: bt task editing?
-
         QByteArray json = data;
 
         // remove btResult =
@@ -297,7 +296,8 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
 
     }
 
-    if (urlStr.startsWith("http://dynamic.cloud.vip.xunlei.com/interface/bt_task_commit"))
+    if (urlStr.startsWith("http://dynamic.cloud.vip.xunlei.com/"
+                          "interface/bt_task_commit"))
     {
         error(tr("Bitorrent commited, reloading tasks .."), Notice);
 
@@ -320,6 +320,48 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
     {
         error(tr("BT task page retrieved, parsing .."), Notice);
 
+        QByteArray json = data;
+
+        // remove a(
+        json.remove (0, 2);
+
+        // chop )
+        json.chop (1);
+
+        QJson::Parser parser;
+        bool ok = false;
+        QVariant result = parser.parse(json, &ok);
+
+        if (! ok)
+        {
+            error (tr("BT task page: JSON parse failure, "
+                      "protocol changed or invalid data."),
+                   Warning);
+            qDebug() << json;
+
+            return;
+        }
+
+        result = result.toMap().value("Result");
+
+        Thunder::BitorrentTask bt_task;
+        bt_task.taskid = result.toMap().value("Tid").toString();
+
+        foreach (const QVariant & record, result.toMap().value("Record").toList())
+        {
+            const QVariantMap & map = record.toMap();
+            Thunder::BTSubTask subtask;
+
+            subtask.id = map.value("id").toString();
+            subtask.size = map.value("size").toString();
+            subtask.link = map.value("downurl").toString();
+            subtask.name = map.value("dirtitle").toString();
+
+            bt_task.subtasks.append(subtask);
+        }
+
+        emit BTSubTaskReady (bt_task);
+        return;
     }
 
     qDebug() << "Unhandled reply:" << "\n----";
@@ -350,7 +392,7 @@ void ThunderCore::parseCloudPage(const QByteArray &body)
     page.settings()->setAttribute(QWebSettings::AutoLoadImages, false);
 
     page.mainFrame()->setHtml(QString::fromUtf8(body));
-//    tc_session.clear();
+    //    tc_session.clear();
 
     /// FIND gdriveid
     foreach (const QWebElement & input, page.mainFrame()->findAllElements("input"))
