@@ -342,9 +342,6 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
             return;
         }
 
-//        qDebug() << result;
-//        qDebug() << "----";
-
         result = result.toMap().value("Result");
 
         Thunder::BitorrentTask bt_task;

@@ -102,7 +102,7 @@ Thunder::RemoteTask ThunderPanel::getFirstSelectedTask ()
     Thunder::RemoteTask task;
     QModelIndex idx, idx2, currentIdx = ui->treeView->currentIndex();
 
-    qDebug() << currentIdx.row();
+//    qDebug() << currentIdx.row();
 
     // top level
     if (! currentIdx.parent().isValid())
@@ -124,17 +124,31 @@ Thunder::RemoteTask ThunderPanel::getFirstSelectedTask ()
         task.name = my_model->data(idx2).toString();
     }
 
-    qDebug() << task.name << task.url;
+//    qDebug() << task.name << task.url;
 
     return task;
 }
 
 QString ThunderPanel::getUserDataByOffset (unsigned long long offset, int row)
 {
-    if (row == -1) row = ui->treeView->currentIndex().row();
-    const QModelIndex & idx = my_model->index(row, 0);
-    if (idx.isValid())
-        return my_model->data(idx, Qt::UserRole + offset).toString();
+    const QModelIndex & currentIndex = ui->treeView->currentIndex();
+
+    // top level
+    if (! currentIndex.parent().isValid())
+    {
+        if (row == -1) row = currentIndex.row();
+        const QModelIndex & idx = my_model->index(row, 0);
+        if (idx.isValid())
+            return my_model->data(idx, Qt::UserRole + offset).toString();
+    }
+
+    else
+    {
+        const QModelIndex & idx = currentIndex.parent().child(currentIndex.row(), 0);
+        if (idx.isValid())
+            return my_model->data(idx, Qt::UserRole + offset).toString();
+    }
+
     return QString ();
 }
 
