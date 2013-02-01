@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     fileselectorline.cpp \
     mediaplayer.cpp \
     osd.cpp \
-    urllineedit.cpp
+    urllineedit.cpp \
+    searchlineedit.cpp
 
 HEADERS  += mainwindow.h \
     thundercore.h \
@@ -53,7 +54,8 @@ HEADERS  += mainwindow.h \
     fileselectorline.h \
     mediaplayer.h \
     osd.h \
-    urllineedit.h
+    urllineedit.h \
+    searchlineedit.h
 
 FORMS    += mainwindow.ui \
     thunderpanel.ui \

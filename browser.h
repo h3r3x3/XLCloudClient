@@ -21,6 +21,8 @@
 
 #include <QWidget>
 #include <QMovie>
+#include <QAction>
+#include <QMenu>
 #include <QUrl>
 #include <QDebug>
 
@@ -47,8 +49,21 @@ private slots:
 
     void on_webView_loadFinished(bool arg1);
 
+    void set_yyets ();
+    void set_verycd ();
+
+    void returnPressed ();
+
 private:
     Ui::Browser *ui;
+
+   enum SearchEngine
+    {
+        VeryCD,
+        YYeTS
+    };
+
+   SearchEngine m_engine;
 };
 
 #endif // BROWSER_H

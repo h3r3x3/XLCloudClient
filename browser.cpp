@@ -26,11 +26,55 @@ Browser::Browser(QWidget *parent) :
     ui->setupUi(this);
     ui->url->setWebView(ui->webView);
     ui->loading->setMovie(new QMovie (":/resources/images/loading.gif"));
+
+    QMenu *searchMenu = new QMenu (this);
+    QAction *action = new QAction (QIcon(":/resources/images/yyets.png"),
+                                   tr("YYeTS"), this);
+    connect (action, SIGNAL(triggered()), SLOT(set_yyets()));
+    searchMenu->addAction(action);
+
+    action = new QAction (QIcon(":/resources/images/amule_mugen.png"),
+                          tr("VeryCD"), this);
+    connect (action, SIGNAL(triggered()), SLOT(set_verycd()));
+    searchMenu->addAction(action);
+
+    ui->search->setMenu(searchMenu);
+
+    ///
+    connect (ui->search, SIGNAL(returnPressed()),
+             SLOT(returnPressed()));
 }
 
 Browser::~Browser()
 {
     delete ui;
+}
+
+void Browser::returnPressed ()
+{
+    switch (m_engine)
+    {
+    case VeryCD:
+        ui->webView->load(QString("http://www.verycd.com/search/entries/%1")
+                          .arg(ui->search->text()));
+        break;
+    case YYeTS:
+        ui->webView->load(QString("http://www.yyets.com/php/search/index?keyword=%1")
+                          .arg(ui->search->text()));
+        break;
+    }
+}
+
+void Browser::set_verycd()
+{
+    m_engine = VeryCD;
+    ui->search->setInactiveText("VeryCD");
+}
+
+void Browser::set_yyets()
+{
+    m_engine = YYeTS;
+    ui->search->setInactiveText("YYeTS");
 }
 
 void Browser::on_reload_clicked()

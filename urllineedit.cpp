@@ -362,3 +362,4 @@ void UrlLineEdit::paintEvent(QPaintEvent *event)
         painter.drawRect(progressRect);
     }
 }
+

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>512</width>
-    <height>478</height>
+    <width>510</width>
+    <height>476</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -86,6 +86,9 @@
      </item>
      <item>
       <widget class="UrlLineEdit" name="url" native="true"/>
+     </item>
+     <item>
+      <widget class="SearchLineEdit" name="search"/>
      </item>
      <item>
       <widget class="QLabel" name="loading">

@@ -178,6 +178,8 @@ void ThunderPanel::setCloudTasks(const QList<Thunder::Task> &tasks)
 
 void ThunderPanel::on_tableView_doubleClicked(const QModelIndex &index)
 {
+    Q_UNUSED(index);
+
     const Thunder::RemoteTask & task = getFirstSelectedTask ();
     switch (Util::shouldAutoOpen(task.name))
     {

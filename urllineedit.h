@@ -6,6 +6,7 @@
 #include <QtGui/QStyleOptionFrame>
 #include <QWebView>
 #include <QWebFrame>
+#include <QMenu>
 #include <QAbstractButton>
 
 QT_BEGIN_NAMESPACE
@@ -90,6 +91,9 @@ private:
     int progress;
 
 };
+
+#include "searchlineedit.h"
+
 
 
 #endif // URLLINEEDIT_H
