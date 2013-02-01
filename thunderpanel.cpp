@@ -100,16 +100,31 @@ void ThunderPanel::slotPreviewThisTask()
 Thunder::RemoteTask ThunderPanel::getFirstSelectedTask ()
 {
     Thunder::RemoteTask task;
+    QModelIndex idx, idx2, currentIdx = ui->treeView->currentIndex();
 
-    int row = ui->treeView->currentIndex().row();
-    const QModelIndex & idx = my_model->index(row, 0);
-    const QModelIndex & idx2 = my_model->index(row, 1);
+    qDebug() << currentIdx.row();
+
+    // top level
+    if (! currentIdx.parent().isValid())
+    {
+        int row = ui->treeView->currentIndex().row();
+        idx = my_model->index(row, 0);
+        idx2 = my_model->index(row, 1);
+    }
+    // child item
+    else
+    {
+        idx = currentIdx.parent().child(currentIdx.row(), 0);
+        idx2 = currentIdx.parent().child(currentIdx.row(), 1);
+    }
 
     if (idx.isValid())
     {
         task.url = my_model->data(idx, Qt::UserRole + OFFSET_DOWNLOAD).toString();
         task.name = my_model->data(idx2).toString();
     }
+
+    qDebug() << task.name << task.url;
 
     return task;
 }
@@ -166,7 +181,7 @@ void ThunderPanel::setBTSubTask(const Thunder::BitorrentTask &task)
         items.first()->setIcon(Util::getFileAttr(subtask.name, false).icon);
 
         items.first()->setData(subtask.link,   Qt::UserRole + OFFSET_DOWNLOAD);
-        items.first()->setData(subtask.id,     Qt::UserRole + OFFSET_TASKID);
+//        items.first()->setData(subtask.id,     Qt::UserRole + OFFSET_TASKID);
 
         for (int i = 0; i < items.size(); ++i)
             items.at(i)->setTextAlignment(Qt::AlignCenter);
