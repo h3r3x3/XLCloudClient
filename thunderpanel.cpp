@@ -160,7 +160,7 @@ void ThunderPanel::setBTSubTask(const Thunder::BitorrentTask &task)
     foreach (const Thunder::BTSubTask & subtask, task.subtasks)
     {
         QList<QStandardItem*> items = QList<QStandardItem*>()
-                << new QStandardItem (subtask.format_size)
+                << new QStandardItem (subtask.size)
                 << new QStandardItem (subtask.name);
 
         items.first()->setIcon(Util::getFileAttr(subtask.name, false).icon);

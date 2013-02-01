@@ -342,20 +342,31 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
             return;
         }
 
+//        qDebug() << result;
+//        qDebug() << "----";
+
         result = result.toMap().value("Result");
 
         Thunder::BitorrentTask bt_task;
-        bt_task.taskid = result.toMap().value("Tid").toString();
+        bt_task.taskid = result.toMap().keys().first();
 
-        foreach (const QVariant & record, result.toMap().value("Record").toList())
+        if (bt_task.taskid.isEmpty())
+        {
+            qDebug() << "NO tasks found, WTF?";
+            return;
+        }
+
+        QVariant mainMap = result.toMap().value(bt_task.taskid);
+
+        foreach (const QVariant & record, mainMap.toList())
         {
             const QVariantMap & map = record.toMap();
             Thunder::BTSubTask subtask;
 
             subtask.id = map.value("id").toString();
-            subtask.size = map.value("size").toString();
-            subtask.link = map.value("downurl").toString();
-            subtask.name = map.value("dirtitle").toString();
+            subtask.size = Util::toReadableSize(map.value("filesize").toULongLong());
+            subtask.link = map.value("downurl").toString().replace("\\/", "/");
+            subtask.name = map.value("title").toString();
 
             bt_task.subtasks.append(subtask);
         }
