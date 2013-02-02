@@ -256,6 +256,9 @@ void MainWindow::on_actionNewTask_triggered()
 
 void MainWindow::on_actionExportTasks_triggered()
 {
+    const QList<Thunder::Task> & cloudTasks = tcore->getCloudTasks();
+    if (cloudTasks.isEmpty()) return;
+
     const QString & file =
             QFileDialog::getSaveFileName(this,
                                          tr("Save task list to"),
@@ -264,7 +267,6 @@ void MainWindow::on_actionExportTasks_triggered()
     if (file.isEmpty()) return;
 
     QByteArray data;
-    const QList<Thunder::Task> & cloudTasks = tcore->getCloudTasks();
     foreach (const Thunder::Task & task, cloudTasks)
     {
         data.append(task.source.toAscii()).append("\n");
