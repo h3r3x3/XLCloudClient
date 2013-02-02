@@ -82,7 +82,8 @@ void DownloaderChildWidget::mouseDoubleClickEvent(QMouseEvent *)
     {
         if (m_autoOpen)
         {
-            QDesktopServices::openUrl(m_folderName + QDir::separator() + m_fileName);
+            QDesktopServices::openUrl(QUrl::fromLocalFile
+                                      (m_folderName + QDir::separator() + m_fileName));
         }
 
         on_openFileLabel_linkActivated("");
@@ -181,7 +182,8 @@ void DownloaderChildWidget::paintEvent(QPaintEvent *)
 void DownloaderChildWidget::on_openFileLabel_linkActivated(const QString &link)
 {
     Q_UNUSED (link);
-    QDesktopServices::openUrl(m_folderName + QDir::separator() + m_fileName);
+    QDesktopServices::openUrl(
+                QUrl::fromLocalFile(m_folderName + QDir::separator() + m_fileName));
 }
 
 void DownloaderChildWidget::on_openFolderLabel_linkActivated(const QString &link)
