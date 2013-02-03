@@ -13,6 +13,17 @@ TEMPLATE = app
 
 LIBS += -lqjson
 
+de.files = CloudClient.desktop
+de.path = /usr/share/applications
+
+bi.files = CloudClient
+bi.path = /usr/local/bin/
+
+icon.files = resources/images/thunder-256.png
+icon.path = /usr/share/icons/hicolor/256x256/apps/
+
+INSTALLS += de bi icon
+
 SOURCES += main.cpp\
         mainwindow.cpp \
     thundercore.cpp \
