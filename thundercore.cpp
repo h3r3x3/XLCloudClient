@@ -20,6 +20,7 @@
 
 ThunderCore::ThunderCore(QObject *parent) :
     QObject(parent),
+    tmp_cookieIsStored (false),
     tc_nam (new QNetworkAccessManager (this))
 {
     connect (tc_nam, SIGNAL(finished(QNetworkReply*)),
@@ -191,6 +192,8 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
     {
         get (QUrl("http://dynamic.cloud.vip.xunlei.com/user_task?st=0&userid=" +
                   tc_session.value("userid")));
+
+        tc_loginStatus = NoError; emit StatusChanged (LoginChanged);
 
         return;
     }
@@ -407,6 +410,14 @@ void ThunderCore::parseCloudPage(const QByteArray &body)
         if (input.attribute("id") == "cok")
         {
             tc_session.insert("gdriveid", input.attribute("value"));
+
+            if (! tmp_cookieIsStored)
+            {
+                tmp_cookieIsStored = true;
+
+                Util::writeFile(Util::getHomeLocation() + "/.tdcookie",
+                                ".vip.xunlei.com\tTRUE\t/\tFALSE\t90147186842\tgdriveid\t" + tc_session.value("gdriveid").toAscii());
+            }
             break;
         }
 
