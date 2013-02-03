@@ -30,6 +30,9 @@ PreferencesDlg::PreferencesDlg(QWidget *parent) :
     settings.beginGroup("General");
     ui->user->setText(settings.value("User").toString());
     ui->credential->setText(settings.value("Credential").toString());
+
+    // dirty fix!
+    tmp_lastCred = ui->credential->text();
     settings.endGroup();
 
     settings.beginGroup("Transf0r");
@@ -60,8 +63,7 @@ void PreferencesDlg::on_buttonBox_accepted()
     settings.setValue("Index", ui->tabWidget->currentIndex());
     settings.setValue("User", ui->user->text());
 
-    // BUG if password length equals 16!
-    if (ui->credential->text().length() != 16)
+    if (ui->credential->text() != tmp_lastCred)
         settings.setValue("Credential", Util::getMD5Hex(ui->credential->text()));
     settings.endGroup();
 

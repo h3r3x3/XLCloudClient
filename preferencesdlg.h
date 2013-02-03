@@ -41,6 +41,8 @@ private slots:
 
 private:
     Ui::PreferencesDlg *ui;
+
+    QString tmp_lastCred;
 };
 
 #endif // PREFERENCESDLG_H
