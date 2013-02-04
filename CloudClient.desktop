@@ -2,7 +2,7 @@
 Name=CloudClient
 GenericName=
 Exec=/usr/local/bin/CloudClient
-Icon=thunder
+Icon=thunder-256
 Comment=
 Categories=Network;
 Type=Application
