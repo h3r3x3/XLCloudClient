@@ -13,14 +13,20 @@ TEMPLATE = app
 
 LIBS += -lqjson
 
+isEmpty (PREFIX) {
+    PREFIX = /usr
+}
+    
+message ("Install prefix set to $${PREFIX}")
+
 de.files = CloudClient.desktop
-de.path = /usr/share/applications
+de.path = $${PREFIX}/share/applications
 
 bi.files = CloudClient
-bi.path = /usr/local/bin/
+bi.path = $${PREFIX}/bin/
 
 icon.files = resources/images/thunder-256.png
-icon.path = /usr/share/icons/hicolor/256x256/apps/
+icon.path = $${PREFIX}/share/icons/hicolor/256x256/apps/
 
 INSTALLS += de bi icon
 
