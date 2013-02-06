@@ -139,6 +139,7 @@ void MainWindow::slotRequestReceived(const Thunder::RemoteTask &task,
     if (task.url.isEmpty())
     {
         //TODO: notification system
+        ui->statusBar->showMessage(tr("Task not ready, refused operation."));
         return;
     }
 
