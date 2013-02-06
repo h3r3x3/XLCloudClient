@@ -44,8 +44,10 @@ Thunder::RemoteTask ThunderCore::getSingleRemoteTask()
 
 void ThunderCore::cleanupHistory()
 {
-    get ("http://dynamic.cloud.vip.xunlei.com/interface/history_clear"
-         "?tcache=1328430359476&flag=6&uid=" + tc_session.value("userid"));
+    QUrl url ("http://dynamic.cloud.vip.xunlei.com/interface/history_clear"
+         "?tcache=1328430359476&flag=6");
+
+    url.addQueryItem("uid", tc_session.value("userid"));
 }
 
 void ThunderCore::commitBitorrentTask(const QList<Thunder::BTSubTask> &tasks)
@@ -109,9 +111,12 @@ void ThunderCore::setCapcha(const QString &code)
 
 void ThunderCore::addCloudTaskPre(const QString &url)
 {
-    get ("http://dynamic.cloud.vip.xunlei.com/interface/"
+    QUrl link ("http://dynamic.cloud.vip.xunlei.com/interface/"
          "task_check?callback=queryCid"
-         "&random=13271369889801529719.0135479392&tcache=1327136998160&url=" + url);
+         "&random=13271369889801529719.0135479392&tcache=1327136998160");
+    link.addQueryItem("url", url);
+
+    get (link);
 }
 
 void ThunderCore::slotFinished(QNetworkReply *reply)

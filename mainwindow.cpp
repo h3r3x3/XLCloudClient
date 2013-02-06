@@ -136,6 +136,12 @@ void MainWindow::slotRequestReceived(const Thunder::RemoteTask &task,
                                      ThunderPanel::RequestType type,
                                      bool autoOpen)
 {
+    if (task.url.isEmpty())
+    {
+        //TODO: notification system
+        return;
+    }
+
     switch (type)
     {
     case ThunderPanel::Preview:
