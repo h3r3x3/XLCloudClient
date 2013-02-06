@@ -71,11 +71,16 @@ void ThunderCore::commitBitorrentTask(const QList<Thunder::BTSubTask> &tasks)
 
 void ThunderCore::addCloudTaskPost(const Thunder::RemoteTask &task)
 {
-    get ("http://dynamic.cloud.vip.xunlei.com/interface/"
+    QUrl url ("http://dynamic.cloud.vip.xunlei.com/interface/"
          "task_commit?callback=ret_task&cid=&gcid=&goldbean=0&"
-         "silverbean=0&type=2&o_page=task&o_taskid=0&ref_url=&size=" +
-         task.size + "&uid=" + tc_session["userid"] +
-            "&t=" + task.name + "&url=" + task.url);
+         "silverbean=0&type=2&o_page=task&o_taskid=0&ref_url=");
+
+    url.addQueryItem("size", task.size);
+    url.addQueryItem("uid", tc_session["userid"]);
+    url.addQueryItem("t", task.name);
+    url.addQueryItem("url", task.url);
+
+    get (url);
 }
 
 void ThunderCore::loginWithCapcha(const QByteArray &capcha)
