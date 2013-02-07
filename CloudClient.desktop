@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=CloudClient
 GenericName=
-Exec=/usr/local/bin/CloudClient
+Exec=CloudClient
 Icon=thunder-256
 Comment=
 Categories=Network;
