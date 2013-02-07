@@ -226,7 +226,13 @@ void ThunderPanel::setCloudTasks(const QList<Thunder::Task> &tasks)
         items.first()->setData(task.type,   Qt::UserRole + OFFSET_TYPE);
 
         for (int i = 0; i < items.size(); ++i)
+        {
+            if (task.link.isEmpty())
+            {
+                items.at(i)->setBackground(QBrush (QColor("#F3F3F3")));
+            }
             items.at(i)->setTextAlignment(Qt::AlignCenter);
+        }
 
         if (task.type == Thunder::BT)
         {
