@@ -36,6 +36,7 @@ void Util::init()
     static_autoOpenMapping.insert("rmvb", Thunder::Video);
     static_autoOpenMapping.insert("pdf", Thunder::Document);
     static_autoOpenMapping.insert("chm", Thunder::Document);
+    static_autoOpenMapping.insert("rar", Thunder::Document);
 
     ///
     static_iconMapping.insert("avi", ":/resources/images/movie.png");
