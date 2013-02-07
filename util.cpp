@@ -85,7 +85,7 @@ Thunder::AutoOpen Util::shouldAutoOpen (const QString &fileName)
     int idx = fileName.lastIndexOf(".");
     if (idx != -1)
     {
-        return static_autoOpenMapping.value(fileName.mid(idx + 1), Thunder::Never);
+        return static_autoOpenMapping.value(fileName.mid(idx + 1).toLower(), Thunder::Never);
     }
 
     return Thunder::Never;
