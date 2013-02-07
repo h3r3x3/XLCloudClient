@@ -358,15 +358,17 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
         result = result.toMap().value("Result");
 
         Thunder::BitorrentTask bt_task;
-        bt_task.taskid = result.toMap().keys().first();
+        const QVariantMap & resultMap = result.toMap();
 
-        if (bt_task.taskid.isEmpty())
+        if (resultMap.size() == 0)
         {
-            qDebug() << "NO tasks found, WTF?";
+            error(tr("BT task not finished, skipping sub tasks."), Notice);
             return;
         }
 
-        QVariant mainMap = result.toMap().value(bt_task.taskid);
+        bt_task.taskid = resultMap.keys().first();
+
+        QVariant mainMap = resultMap.value(bt_task.taskid);
 
         foreach (const QVariant & record, mainMap.toList())
         {
