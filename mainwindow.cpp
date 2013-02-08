@@ -294,3 +294,8 @@ void MainWindow::on_actionExportTasks_triggered()
                              QMessageBox::Ok);
     }
 }
+
+void MainWindow::on_actionCleanupHistory_triggered()
+{
+    tcore->cleanupHistory();
+}
