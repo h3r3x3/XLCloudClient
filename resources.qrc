@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>resources/images/amule_mugen.png</file>
         <file>resources/images/application-rss+xml.png</file>
-        <file>resources/images/bg_conic.png</file>
         <file>resources/images/dialog-close.png</file>
         <file>resources/images/dialog-ok-apply.png</file>
         <file>resources/images/document-open-folder.png</file>
@@ -63,5 +62,7 @@
         <file>resources/images/text-field.png</file>
         <file>resources/images/vcs-added.png</file>
         <file>resources/images/defaulticon.png</file>
+        <file>resources/images/draw-eraser.png</file>
+        <file>resources/images/help-about.png</file>
     </qresource>
 </RCC>

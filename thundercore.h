@@ -95,6 +95,7 @@ public:
 
     QList<Thunder::Task> getCloudTasks ();
     QList<Thunder::Task> getGarbagedTasks ();
+    void reloadCloudTasks ();
     void addCloudTaskPre (const QString & url);
     void addCloudTaskPost (const Thunder::RemoteTask & task);
     void removeCloudTasks (const QStringList & ids);

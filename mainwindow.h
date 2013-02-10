@@ -88,6 +88,7 @@ private slots:
     void on_actionNewTask_triggered();
     void on_actionExportTasks_triggered();
     void on_actionCleanupHistory_triggered();
+    void on_actionReloadTasks_triggered();
 };
 
 #endif // MAINWINDOW_H

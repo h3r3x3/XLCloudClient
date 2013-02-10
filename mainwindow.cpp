@@ -299,3 +299,8 @@ void MainWindow::on_actionCleanupHistory_triggered()
 {
     tcore->cleanupHistory();
 }
+
+void MainWindow::on_actionReloadTasks_triggered()
+{
+    tcore->reloadCloudTasks();
+}

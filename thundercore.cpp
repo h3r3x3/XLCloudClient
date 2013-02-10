@@ -109,6 +109,12 @@ void ThunderCore::setCapcha(const QString &code)
     loginWithCapcha(code.toAscii());
 }
 
+void ThunderCore::reloadCloudTasks()
+{
+    get (QUrl("http://dynamic.cloud.vip.xunlei.com/user_task?st=0&userid=" +
+              tc_session.value("userid")));
+}
+
 void ThunderCore::addCloudTaskPre(const QString &url)
 {
     QUrl link ("http://dynamic.cloud.vip.xunlei.com/interface/"
@@ -200,8 +206,7 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
 
     if (urlStr.startsWith("http://dynamic.cloud.vip.xunlei.com/login"))
     {
-        get (QUrl("http://dynamic.cloud.vip.xunlei.com/user_task?st=0&userid=" +
-                  tc_session.value("userid")));
+        reloadCloudTasks();
 
         tc_loginStatus = NoError; emit StatusChanged (LoginChanged);
 
@@ -225,8 +230,7 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
         /*!
          * \brief Reload user page!
          */
-        get (QUrl("http://dynamic.cloud.vip.xunlei.com/user_task?st=0&userid=" +
-                  tc_session.value("userid")));
+        reloadCloudTasks();
 
         error (tr("Task removed, reloading page .."), Info);
         return;
@@ -255,8 +259,7 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
     {
         error(tr("Task added, reloading page .."), Notice);
 
-        get (QUrl("http://dynamic.cloud.vip.xunlei.com/user_task?st=0&userid=" +
-                  tc_session.value("userid")));
+        reloadCloudTasks();
 
         return;
     }
@@ -314,8 +317,7 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
     {
         error(tr("Bitorrent commited, reloading tasks .."), Notice);
 
-        get (QUrl("http://dynamic.cloud.vip.xunlei.com/user_task?st=0&userid=" +
-                  tc_session.value("userid")));
+        reloadCloudTasks();
 
         return;
     }

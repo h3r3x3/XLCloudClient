@@ -47,6 +47,7 @@
      <string>E&amp;dit</string>
     </property>
     <addaction name="actionCleanupHistory"/>
+    <addaction name="actionReloadTasks"/>
     <addaction name="separator"/>
     <addaction name="actionPreferences"/>
    </widget>
@@ -64,6 +65,11 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAboutAuthor">
+   <property name="icon">
+    <iconset>
+     <normalon>:/resources/images/help-about.png</normalon>
+    </iconset>
+   </property>
    <property name="text">
     <string>About Author</string>
    </property>
@@ -120,6 +126,19 @@
   <action name="actionCleanupHistory">
    <property name="text">
     <string>Cleanup History</string>
+   </property>
+  </action>
+  <action name="actionReloadTasks">
+   <property name="icon">
+    <iconset>
+     <normalon>:/resources/images/draw-eraser.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>R&amp;eload Tasks</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
    </property>
   </action>
  </widget>
