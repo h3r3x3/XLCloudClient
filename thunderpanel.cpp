@@ -102,7 +102,7 @@ Thunder::RemoteTask ThunderPanel::getFirstSelectedTask ()
     Thunder::RemoteTask task;
     QModelIndex idx, idx2, currentIdx = ui->treeView->currentIndex();
 
-//    qDebug() << currentIdx.row();
+    //    qDebug() << currentIdx.row();
 
     // top level
     if (! currentIdx.parent().isValid())
@@ -124,7 +124,7 @@ Thunder::RemoteTask ThunderPanel::getFirstSelectedTask ()
         task.name = my_model->data(idx2).toString();
     }
 
-//    qDebug() << task.name << task.url;
+    //    qDebug() << task.name << task.url;
 
     return task;
 }
@@ -195,7 +195,7 @@ void ThunderPanel::setBTSubTask(const Thunder::BitorrentTask &task)
         items.first()->setIcon(Util::getFileAttr(subtask.name, false).icon);
 
         items.first()->setData(subtask.link,   Qt::UserRole + OFFSET_DOWNLOAD);
-//        items.first()->setData(subtask.id,     Qt::UserRole + OFFSET_TASKID);
+        //        items.first()->setData(subtask.id,     Qt::UserRole + OFFSET_TASKID);
 
         for (int i = 0; i < items.size(); ++i)
             items.at(i)->setTextAlignment(Qt::AlignCenter);
