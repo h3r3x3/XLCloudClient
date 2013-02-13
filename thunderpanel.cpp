@@ -227,9 +227,9 @@ void ThunderPanel::setCloudTasks(const QList<Thunder::Task> &tasks)
 
         for (int i = 0; i < items.size(); ++i)
         {
-            if (task.link.isEmpty())
+            if (task.link.isEmpty() && i == 1 && task.type != Thunder::BT)
             {
-                items.at(i)->setBackground(QBrush (QColor("#F3F3F3")));
+                items.at(i)->setBackground(QBrush (QColor("#9CC6EE")));
             }
             items.at(i)->setTextAlignment(Qt::AlignCenter);
         }
