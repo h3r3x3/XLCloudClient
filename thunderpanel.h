@@ -80,6 +80,13 @@ private:
     QHash<QString, QStandardItem*> my_BTSubTaskMapping;
 
     QStandardItemModel *my_model;
+
+    /*!
+     * \brief getUserDataByOffset
+     * \param 0 when retrieving DisplayRole
+     * \param row
+     * \return
+     */
     QString getUserDataByOffset (unsigned long long offset, int row = -1);
 
     QMenu *my_contextMenu;
@@ -94,6 +101,7 @@ private slots:
 
     void slotCopyDownloadAddress ();
     void slotCopySourceAddress ();
+    void slotCopyTaskName ();
     void on_treeView_doubleClicked(const QModelIndex &index);
 };
 

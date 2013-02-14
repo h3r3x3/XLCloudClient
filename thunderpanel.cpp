@@ -57,6 +57,10 @@ ThunderPanel::ThunderPanel(QWidget *parent) :
     connect (action, SIGNAL(triggered()), SLOT(slotCopySourceAddress()));
     my_contextMenu->addAction(action);
 
+    action = new QAction (tr("Copy task name"), this);
+    connect (action, SIGNAL(triggered()), SLOT(slotCopyTaskName()));
+    my_contextMenu->addAction(action);
+
     connect (ui->treeView, SIGNAL(customContextMenuRequested(QPoint)),
              SLOT(slotShowContextMenu(QPoint)));
 
@@ -83,6 +87,14 @@ void ThunderPanel::slotDownloadThisTask()
     const QString & url = getUserDataByOffset(OFFSET_DOWNLOAD);
     if (url.isEmpty()) return;
     emit doThisLink(getFirstSelectedTask(), Download, false);
+}
+
+void ThunderPanel::slotCopyTaskName()
+{
+    const QString & name = getUserDataByOffset(0);
+    if (name.isEmpty()) return;
+
+    QApplication::clipboard()->setText(name);
 }
 
 void ThunderPanel::slotRemoveTheseTasks()
@@ -132,21 +144,23 @@ Thunder::RemoteTask ThunderPanel::getFirstSelectedTask ()
 QString ThunderPanel::getUserDataByOffset (unsigned long long offset, int row)
 {
     const QModelIndex & currentIndex = ui->treeView->currentIndex();
+    int role = (offset == 0) ? (Qt::DisplayRole + 0) : (Qt::UserRole + offset);
 
     // top level
     if (! currentIndex.parent().isValid())
     {
         if (row == -1) row = currentIndex.row();
-        const QModelIndex & idx = my_model->index(row, 0);
+        const QModelIndex & idx = my_model->index(row, (offset == 0) ? 1 : 0);
         if (idx.isValid())
-            return my_model->data(idx, Qt::UserRole + offset).toString();
+            return my_model->data(idx, role).toString();
     }
 
     else
     {
-        const QModelIndex & idx = currentIndex.parent().child(currentIndex.row(), 0);
+        const QModelIndex & idx = currentIndex.parent().child(
+                    currentIndex.row(), (offset == 0) ? 1 : 0);
         if (idx.isValid())
-            return my_model->data(idx, Qt::UserRole + offset).toString();
+            return my_model->data(idx, role).toString();
     }
 
     return QString ();
