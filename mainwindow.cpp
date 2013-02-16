@@ -106,6 +106,13 @@ void MainWindow::login()
 
     if (! user.isEmpty() && ! credential.isEmpty())
         tcore->login(user, credential);
+
+    // DIRTY FIX! @TODO
+    {
+        QSettings settings;
+        settings.beginGroup("Transf0r");
+        transf0r->setStoragePath(settings.value("StorageLocation").toString());
+    }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e)

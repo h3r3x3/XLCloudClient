@@ -32,6 +32,13 @@ Transf0r::~Transf0r()
     delete ui;
 }
 
+void Transf0r::setStoragePath(const QString &path)
+{
+    qDebug() << "Set: " << path;
+    if (! path.isEmpty())
+        my_storagePath = path;
+}
+
 void Transf0r::addCloudTask(const Thunder::RemoteTask &taskInfo, bool autoOpen)
 {
     QListWidgetItem *item = new QListWidgetItem;

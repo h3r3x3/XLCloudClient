@@ -30,8 +30,8 @@ Downloader::Downloader(QObject *parent):
     downBufferSize ( 3*1024*1024 ),
     nam (new QNetworkAccessManager (this))
 {
-    connect ( &speedTimer , SIGNAL(timeout()) , SLOT(calcSpeed()) );
-    connect ( &logSaveTimer , SIGNAL(timeout()) , SLOT(saveLog()) );
+    connect ( &speedTimer, SIGNAL(timeout()), SLOT(calcSpeed()) );
+    connect ( &logSaveTimer, SIGNAL(timeout()), SLOT(saveLog()) );
 }
 
 Downloader::~Downloader()
