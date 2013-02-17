@@ -39,3 +39,7 @@
 抄袭一下迷你迅雷的界面！
 
 ![Screenshot] (https://raw.github.com/CaledoniaProject/XLCloudClient/master/contrib/screenshot/4.png "Desktop screenshot")
+
+0.32 版本之后可以同时添加多个任务，你可以直接读取剪贴板或者手动输入URL.
+
+![Screenshot] (https://raw.github.com/CaledoniaProject/XLCloudClient/master/contrib/screenshot/5.png "Desktop screenshot")
