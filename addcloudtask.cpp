@@ -21,6 +21,7 @@
 
 #define OFFSET_SUBID 1
 #define OFFSET_SIZE 2
+#define OFFSET_URL 3
 
 AddCloudTask::AddCloudTask(ThunderCore *tc, QWidget *parent) :
     QDialog(parent),
@@ -109,6 +110,28 @@ void AddCloudTask::slotRemoteTaskChanged(ThunderCore::RemoteTaskType type)
         ui->tableViewBT->selectAll();
     }
         break;
+    case ThunderCore::BatchTaskReady:
+    {
+        batch_model->setRowCount(0);
+        unsigned long long task_tot_size = 0;
+
+        foreach (const Thunder::BatchTask & batch_task, tcore->getUploadedBatchTasks())
+        {
+            QList<QStandardItem*> items;
+            items << new QStandardItem (batch_task.formatsize)
+                  << new QStandardItem (batch_task.name);
+
+            items.first()->setData(batch_task.url, Qt::UserRole + OFFSET_URL);
+
+            task_tot_size += batch_task.size;
+            batch_model->appendRow(items);
+        }
+
+        ui->tableViewBatch->selectAll();
+        ui->sizeLabelBatchJob->setText(tr("Total size of tasks: %1")
+                                       .arg(Util::toReadableSize(task_tot_size)));
+    }
+        break;
     default:
         Q_ASSERT(false);
         break;
@@ -151,9 +174,23 @@ void AddCloudTask::on_buttonBox_accepted()
             }
 
         tcore->commitBitorrentTask (tasks);
-        break;
     }
+        break;
+    case 2:
+    {
+        QStringList urls;
 
+        foreach (const QModelIndex & index,
+                 ui->tableViewBatch->selectionModel()->selectedIndexes())
+            if (index.column() == 0)
+            {
+                urls.append(batch_model->data(index,
+                                              Qt::UserRole + OFFSET_URL).toString());
+            }
+
+        tcore->addBatchTaskPost(urls);
+    }
+        break;
     default:
         break;
     }

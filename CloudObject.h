@@ -51,6 +51,11 @@ namespace Thunder
         QString url;
     };
 
+    struct BatchTask
+    {
+        QString formatsize, url, name;
+        unsigned long long size;
+    };
 
     struct BTSubTask
     {

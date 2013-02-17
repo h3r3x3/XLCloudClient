@@ -37,6 +37,11 @@ QList<Thunder::Task> ThunderCore::getGarbagedTasks()
     return tc_garbagedTasks;
 }
 
+QList<Thunder::BatchTask> ThunderCore::getUploadedBatchTasks()
+{
+    return tmp_batchTasks;
+}
+
 Thunder::RemoteTask ThunderCore::getSingleRemoteTask()
 {
     return tmp_singleTask;
@@ -48,12 +53,18 @@ void ThunderCore::addBatchTaskPre(const QString &urls)
           "random=123456&url=" + urls.toUtf8().toPercentEncoding());
 }
 
-void ThunderCore::addBatchTaskPost()
+void ThunderCore::addBatchTaskPost(const QStringList &urls)
 {
-    QByteArray data;
+    QByteArray postData = "cid%5B%5D=&class_id=0&"
+            "batch_old_taskid=0&batch_old_database=0";
 
-    post (QUrl("http://dynamic.cloud.vip.xunlei.com/interface/batch_task_commit"),
-          data);
+    foreach (const QString & url, urls)
+    {
+        postData.append("&url%5B%5D=").append(url.toUtf8().toPercentEncoding());
+    }
+
+    post (QUrl("http://dynamic.cloud.vip.xunlei.com/interface/batch_task_commit?callback=a"),
+          postData);
 }
 
 void ThunderCore::cleanupHistory()
@@ -401,6 +412,54 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
 
         emit BTSubTaskReady (bt_task);
         return;
+    }
+
+    if (urlStr.startsWith("http://dynamic.cloud.vip.xunlei.com/interface/batch_task_check"))
+    {
+        QByteArray json = data;
+
+        // remove <script>document.domain='xunlei.com';parent.begin_task_batch_resp(
+        json.remove(0, 66);
+
+        // chop ,'123456');</script>"
+        json.chop(20);
+
+        QJson::Parser parser;
+        bool ok = false;
+
+        QVariant result = parser.parse(json, &ok);
+        if (! ok)
+        {
+            error (tr("Batch task parser: JSON parse failure, "
+                      "protocol changed or invalid data."),
+                   Warning);
+            qDebug() << json;
+
+            return;
+        }
+
+        tmp_batchTasks.clear();
+        foreach (const QVariant & item, result.toList())
+        {
+            const QVariantMap & itemData = item.toMap();
+            Thunder::BatchTask batch_task;
+
+            batch_task.url = itemData.value("url").toString();
+            batch_task.name = itemData.value("name").toString();
+            batch_task.size = itemData.value("filesize").toULongLong();
+            batch_task.formatsize = itemData.value("formatsize").toString();
+
+            tmp_batchTasks.push_back(batch_task);
+        }
+
+        emit RemoteTaskChanged(ThunderCore::BatchTaskReady);
+
+        return;
+    }
+
+    if (urlStr.startsWith("http://dynamic.cloud.vip.xunlei.com/interface/batch_task_commit"))
+    {
+        reloadCloudTasks();
     }
 
     qDebug() << "Unhandled reply:" << "\n----";

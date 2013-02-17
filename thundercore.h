@@ -81,6 +81,7 @@ public:
         // that call getSingleRemoteTask();
         SingleTaskReady,
 
+        // that call getUploadedBatchTasks();
         BatchTaskReady,
 
         // that call getUploadedBTTasks
@@ -101,7 +102,7 @@ public:
     void removeCloudTasks (const QStringList & ids);
 
     void addBatchTaskPre (const QString & urls);
-    void addBatchTaskPost ();
+    void addBatchTaskPost (const QStringList & urls);
 
     void uploadBitorrent (const QString & file);
     void commitBitorrentTask (const QList<Thunder::BTSubTask> &tasks);
@@ -109,6 +110,7 @@ public:
 
     Thunder::RemoteTask getSingleRemoteTask ();
     Thunder::BitorrentTask getUploadedBTTasks();
+    QList<Thunder::BatchTask> getUploadedBatchTasks ();
 
     void cleanupHistory ();
 
@@ -138,6 +140,7 @@ private:
 
     Thunder::RemoteTask tmp_singleTask;
     Thunder::BitorrentTask tmp_btTask;
+    QList<Thunder::BatchTask> tmp_batchTasks;
 
     /* passwd should be cleared after use! */
     QString tc_userName, tc_passwd;
