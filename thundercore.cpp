@@ -42,6 +42,20 @@ Thunder::RemoteTask ThunderCore::getSingleRemoteTask()
     return tmp_singleTask;
 }
 
+void ThunderCore::addBatchTaskPre(const QString &urls)
+{
+    post (QUrl("http://dynamic.cloud.vip.xunlei.com/interface/batch_task_check"),
+          "random=123456&url=" + urls.toUtf8().toPercentEncoding());
+}
+
+void ThunderCore::addBatchTaskPost()
+{
+    QByteArray data;
+
+    post (QUrl("http://dynamic.cloud.vip.xunlei.com/interface/batch_task_commit"),
+          data);
+}
+
 void ThunderCore::cleanupHistory()
 {
     QUrl url ("http://dynamic.cloud.vip.xunlei.com/interface/history_clear"

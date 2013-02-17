@@ -100,6 +100,9 @@ public:
     void addCloudTaskPost (const Thunder::RemoteTask & task);
     void removeCloudTasks (const QStringList & ids);
 
+    void addBatchTaskPre (const QString & urls);
+    void addBatchTaskPost ();
+
     void uploadBitorrent (const QString & file);
     void commitBitorrentTask (const QList<Thunder::BTSubTask> &tasks);
     void getContentsOfBTFolder (const Thunder::Task &bt_task);

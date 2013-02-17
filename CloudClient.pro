@@ -50,7 +50,8 @@ SOURCES += main.cpp\
     mediaplayer.cpp \
     osd.cpp \
     urllineedit.cpp \
-    searchlineedit.cpp
+    searchlineedit.cpp \
+    simpleeditor.cpp
 
 HEADERS  += mainwindow.h \
     thundercore.h \
@@ -72,7 +73,8 @@ HEADERS  += mainwindow.h \
     mediaplayer.h \
     osd.h \
     urllineedit.h \
-    searchlineedit.h
+    searchlineedit.h \
+    simpleeditor.h
 
 FORMS    += mainwindow.ui \
     thunderpanel.ui \
@@ -84,7 +86,8 @@ FORMS    += mainwindow.ui \
     transf0r.ui \
     downloaderchildwidget.ui \
     saycapcha.ui \
-    fileselectorline.ui
+    fileselectorline.ui \
+    simpleeditor.ui
 
 RESOURCES += \
     resources.qrc

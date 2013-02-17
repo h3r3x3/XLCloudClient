@@ -27,6 +27,7 @@
 #include <QFileDialog>
 
 #include "thundercore.h"
+#include "simpleeditor.h"
 
 namespace Ui {
 class AddCloudTask;
@@ -60,6 +61,10 @@ private slots:
 
     void on_uploadBTFile_clicked();
 
+    void on_openEditorBtn_clicked();
+
+    void on_getClipboardBtn_clicked();
+
 protected:
     void showEvent(QShowEvent *e);
 
@@ -70,7 +75,7 @@ private:
 
     Thunder::RemoteTask tmp_singleRemoteTask;
 
-    QStandardItemModel *bt_model;
+    QStandardItemModel *bt_model, *batch_model;
 
 signals:
     void requestChanged (AddCloudTask::RequestType type);

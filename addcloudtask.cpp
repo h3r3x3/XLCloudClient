@@ -26,15 +26,21 @@ AddCloudTask::AddCloudTask(ThunderCore *tc, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddCloudTask),
     tcore (tc),
-    bt_model(new QStandardItemModel)
+    bt_model(new QStandardItemModel),
+    batch_model(new QStandardItemModel)
 {
     ui->setupUi(this);
     ui->tabWidget->setCurrentIndex(0);
     ui->tableViewBT->setModel(bt_model);
+    ui->tableViewBatch->setModel(batch_model);
 
     bt_model->setHorizontalHeaderLabels(QStringList()
                                         << tr("Size")
                                         << tr("Name"));
+
+    batch_model->setHorizontalHeaderLabels(QStringList()
+                                           << tr("Size")
+                                           << tr("Name"));
 
     connect (tcore, SIGNAL(RemoteTaskChanged(ThunderCore::RemoteTaskType)),
              SLOT(slotRemoteTaskChanged(ThunderCore::RemoteTaskType)));
@@ -164,4 +170,17 @@ void AddCloudTask::on_uploadBTFile_clicked()
         return;
 
     tcore->uploadBitorrent(file);
+}
+
+void AddCloudTask::on_openEditorBtn_clicked()
+{
+    SimpleEditor *editor = new SimpleEditor (this);
+    editor->exec();
+
+    tcore->addBatchTaskPre(editor->getText());
+}
+
+void AddCloudTask::on_getClipboardBtn_clicked()
+{
+    tcore->addBatchTaskPre(QApplication::clipboard()->text());
 }
