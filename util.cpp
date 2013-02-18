@@ -45,6 +45,7 @@ void Util::init()
     static_iconMapping.insert("rm", ":/resources/images/movie.png");
     static_iconMapping.insert("rmvb", ":/resources/images/movie.png");
     static_iconMapping.insert("flv", ":/resources/images/movie.png");
+    static_iconMapping.insert("m4v", ":/resources/images/movie.png");
     static_iconMapping.insert("mov", ":/resources/images/movie.png");
     static_iconMapping.insert("mpg", ":/resources/images/movie.png");
     static_iconMapping.insert("mpeg", ":/resources/images/movie.png");
