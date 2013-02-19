@@ -124,7 +124,7 @@ void DownloaderChildWidget::taskStatusChanged(Downloader::TaskStatusX ts)
     case Downloader::Finished:
         m_taskStatusRoutineTimer.stop();
         m_percentage = 100;
-        ui->transferStatusLabel->setText(QString ("%1/%1 finished")
+        ui->transferStatusLabel->setText(QString ("%1/%1 Finished")
                                          .arg(Util::toReadableSize(m_Downloader.getFileSize())) );
         update ();
         break;
