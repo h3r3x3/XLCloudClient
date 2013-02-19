@@ -236,9 +236,10 @@ void MainWindow::on_actionAboutAuthor_triggered()
 {
     QMessageBox::about(this,
                        QApplication::applicationName(),
-                       tr("Xunlei VIP Cloud client<br/><br/>"
+                       tr("Xunlei VIP Cloud client $VER %1<br/><br/>"
                           "Written by <b>Aaron Lewis</b>"
-                          " (the.warl0ck.1989@gmail.com)"));
+                          " (the.warl0ck.1989@gmail.com)")
+                       .arg(QApplication::applicationVersion()));
 }
 
 void MainWindow::slotSettingsChanged ()
