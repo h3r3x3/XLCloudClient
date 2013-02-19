@@ -113,6 +113,12 @@ void MainWindow::login()
         settings.beginGroup("Transf0r");
         transf0r->setStoragePath(settings.value("StorageLocation").toString());
     }
+
+    {
+        QSettings settings;
+        settings.beginGroup("General");
+        tpanel->setQuickViewMode(settings.value("QuickViewMode").toBool());
+    }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e)

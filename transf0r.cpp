@@ -34,7 +34,6 @@ Transf0r::~Transf0r()
 
 void Transf0r::setStoragePath(const QString &path)
 {
-    qDebug() << "Set: " << path;
     if (! path.isEmpty())
         my_storagePath = path;
 }

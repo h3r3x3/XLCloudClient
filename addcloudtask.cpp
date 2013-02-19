@@ -123,6 +123,9 @@ void AddCloudTask::slotRemoteTaskChanged(ThunderCore::RemoteTaskType type)
 
             items.first()->setData(batch_task.url, Qt::UserRole + OFFSET_URL);
 
+            for (int i = 0; i < items.size(); ++i)
+                items.at(i)->setTextAlignment(Qt::AlignCenter);
+
             task_tot_size += batch_task.size;
             batch_model->appendRow(items);
         }

@@ -27,6 +27,7 @@
 ThunderPanel::ThunderPanel(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ThunderPanel),
+    my_quickViewMode(true),
     my_model(new QStandardItemModel),
     my_contextMenu(new QMenu(this))
 {
@@ -80,6 +81,11 @@ void ThunderPanel::slotShowContextMenu (const QPoint &pt)
 {
     Q_UNUSED(pt)
     my_contextMenu->exec(QCursor::pos());
+}
+
+void ThunderPanel::setQuickViewMode(bool ok)
+{
+    my_quickViewMode = ok;
 }
 
 void ThunderPanel::slotDownloadThisTask()
@@ -260,6 +266,7 @@ void ThunderPanel::setCloudTasks(const QList<Thunder::Task> &tasks)
 void ThunderPanel::on_treeView_doubleClicked(const QModelIndex &index)
 {
     Q_UNUSED(index);
+    if (! my_quickViewMode) return;
 
     const Thunder::RemoteTask & task = getFirstSelectedTask ();
     switch (Util::shouldAutoOpen(task.name))

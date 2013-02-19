@@ -57,6 +57,8 @@ public:
     explicit ThunderPanel(QWidget *parent = 0);
     ~ThunderPanel();
 
+    void setQuickViewMode (bool ok);
+
     void setCloudTasks (const QList<Thunder::Task> & tasks);
 
     QStringList getSelectedTaskIDs ();
@@ -73,6 +75,7 @@ signals:
 
 private:
     Ui::ThunderPanel *ui;
+    bool my_quickViewMode;
 
     /*!
      * \brief Mapping between task id and sub tasks of a BT task

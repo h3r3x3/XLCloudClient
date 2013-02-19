@@ -30,6 +30,7 @@ PreferencesDlg::PreferencesDlg(QWidget *parent) :
     settings.beginGroup("General");
     ui->user->setText(settings.value("User").toString());
     ui->credential->setText(settings.value("Credential").toString());
+    ui->quickPreviewMode->setChecked(settings.value("QuickViewMode").toBool());
 
     // dirty fix!
     tmp_lastCred = ui->credential->text();
@@ -62,6 +63,7 @@ void PreferencesDlg::on_buttonBox_accepted()
     settings.beginGroup("General");
     settings.setValue("Index", ui->tabWidget->currentIndex());
     settings.setValue("User", ui->user->text());
+    settings.setValue("QuickViewMode", ui->quickPreviewMode->isChecked());
 
     if (ui->credential->text() != tmp_lastCred)
         settings.setValue("Credential", Util::getMD5Hex(ui->credential->text()));
