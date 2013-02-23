@@ -28,6 +28,7 @@ ThunderPanel::ThunderPanel(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ThunderPanel),
     my_quickViewMode(true),
+    my_filterModel(new QSortFilterProxyModel),
     my_model(new QStandardItemModel),
     my_contextMenu(new QMenu(this))
 {
@@ -68,6 +69,8 @@ ThunderPanel::ThunderPanel(QWidget *parent) :
     my_model->setHorizontalHeaderLabels(QStringList()
                                         << tr("Size")
                                         << tr("Name"));
+    my_filterModel->setSourceModel(my_model);
+
     ui->treeView->setModel(my_model);
     ui->treeView->resizeColumnToContents(0);
 }
@@ -281,4 +284,9 @@ void ThunderPanel::on_treeView_doubleClicked(const QModelIndex &index)
         break;
     }
 
+}
+
+void ThunderPanel::on_filter_textChanged(const QString &arg1)
+{
+    my_filterModel->setFilterRegExp(arg1);
 }

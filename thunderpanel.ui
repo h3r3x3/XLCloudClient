@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>742</width>
-    <height>609</height>
+    <width>665</width>
+    <height>347</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,6 +28,22 @@
        <height>32</height>
       </size>
      </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="filterPanel" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Filter:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="filter"/>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>

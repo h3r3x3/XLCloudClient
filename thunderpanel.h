@@ -24,6 +24,7 @@
 #include <QMenu>
 #include <QHash>
 #include <QAction>
+#include <QSortFilterProxyModel>
 #include <QCursor>
 #include <QApplication>
 #include <QClipboard>
@@ -82,6 +83,7 @@ private:
      */
     QHash<QString, QStandardItem*> my_BTSubTaskMapping;
 
+    QSortFilterProxyModel *my_filterModel;
     QStandardItemModel *my_model;
 
     /*!
@@ -106,6 +108,7 @@ private slots:
     void slotCopySourceAddress ();
     void slotCopyTaskName ();
     void on_treeView_doubleClicked(const QModelIndex &index);
+    void on_filter_textChanged(const QString &arg1);
 };
 
 #endif // THUNDERPANEL_H
