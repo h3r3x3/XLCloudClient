@@ -63,6 +63,15 @@ ThunderPanel::ThunderPanel(QWidget *parent) :
     connect (action, SIGNAL(triggered()), SLOT(slotCopyTaskName()));
     my_contextMenu->addAction(action);
 
+    my_contextMenu->addSeparator();
+    action = new QAction (tr("Collapse all"), this);
+    connect (action, SIGNAL(triggered()), ui->treeView, SLOT(collapseAll()));
+    my_contextMenu->addAction(action);
+
+    action = new QAction (tr("Expand all"), this);
+    connect (action, SIGNAL(triggered()), ui->treeView, SLOT(expandAll()));
+    my_contextMenu->addAction(action);
+
     connect (ui->treeView, SIGNAL(customContextMenuRequested(QPoint)),
              SLOT(slotShowContextMenu(QPoint)));
 
