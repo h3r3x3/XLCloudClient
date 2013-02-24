@@ -27,6 +27,7 @@
 #include <QSortFilterProxyModel>
 #include <QCursor>
 #include <QApplication>
+#include <QKeyEvent>
 #include <QClipboard>
 #include <QStandardItem>
 #include <QDebug>
@@ -64,6 +65,8 @@ public:
 
     QStringList getSelectedTaskIDs ();
     Thunder::RemoteTask getFirstSelectedTask ();
+
+    void keyEvent (QKeyEvent *e);
 
 public slots:
     void setBTSubTask (const Thunder::BitorrentTask & task);

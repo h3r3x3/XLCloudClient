@@ -128,7 +128,8 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
     case Qt::CTRL:
         switch (e->key())
         {
-        case Qt::Key_R:
+        case Qt::Key_F:
+            tpanel->keyEvent(e);
             break;
         }
 
@@ -142,6 +143,13 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
         }
 
         break;
+    default:
+        switch (e->key())
+        {
+        case Qt::Key_Escape:
+            tpanel->keyEvent(e);
+            break;
+        }
     }
 }
 

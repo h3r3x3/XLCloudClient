@@ -33,6 +33,7 @@ ThunderPanel::ThunderPanel(QWidget *parent) :
     my_contextMenu(new QMenu(this))
 {
     ui->setupUi(this);
+    ui->filterPanel->hide();
 
     QAction *action = new QAction (QIcon(":/resources/images/movie.png"),
                                    tr("Preview"), this);
@@ -87,6 +88,36 @@ ThunderPanel::ThunderPanel(QWidget *parent) :
 ThunderPanel::~ThunderPanel()
 {
     delete ui;
+}
+
+void ThunderPanel::keyEvent(QKeyEvent *e)
+{
+    switch (e->modifiers())
+    {
+    case Qt::CTRL:
+        switch (e->key())
+        {
+        case Qt::Key_F:
+            if (ui->filterPanel->isVisible())
+            {
+                ui->filter->selectAll();
+            }
+            else
+            {
+                ui->filterPanel->show();
+                ui->filter->setFocus();
+            }
+            break;
+        }
+    default:
+        switch (e->key())
+        {
+        case Qt::Key_Escape:
+            ui->filterPanel->hide();
+            break;
+        }
+        break;
+    }
 }
 
 void ThunderPanel::slotShowContextMenu (const QPoint &pt)
