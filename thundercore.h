@@ -100,6 +100,7 @@ public:
     void addCloudTaskPre (const QString & url);
     void addCloudTaskPost (const Thunder::RemoteTask & task);
     void removeCloudTasks (const QStringList & ids);
+    void delayCloudTask (const QStringList & ids);
 
     void addBatchTaskPre (const QString & urls);
     void addBatchTaskPost (const QStringList & urls);

@@ -67,10 +67,23 @@ void ThunderCore::addBatchTaskPost(const QStringList &urls)
           postData);
 }
 
+void ThunderCore::delayCloudTask(const QStringList &ids)
+{
+    QString id_list;
+    foreach (const QString & id, ids)
+    {
+        id_list.append(id).append("_1,");
+    }
+
+    get (QUrl ("http://dynamic.cloud.vip.xunlei.com/interface/task_delay"
+               "?taskids=" + id_list +
+               "&interfrom=task&noCacheIE=1362310408959"));
+}
+
 void ThunderCore::cleanupHistory()
 {
     QUrl url ("http://dynamic.cloud.vip.xunlei.com/interface/history_clear"
-         "?tcache=1328430359476&flag=6");
+              "?tcache=1328430359476&flag=6");
 
     url.addQueryItem("uid", tc_session.value("userid"));
 }
@@ -99,8 +112,8 @@ void ThunderCore::commitBitorrentTask(const QList<Thunder::BTSubTask> &tasks)
 void ThunderCore::addCloudTaskPost(const Thunder::RemoteTask &task)
 {
     QUrl url ("http://dynamic.cloud.vip.xunlei.com/interface/"
-         "task_commit?callback=ret_task&cid=&gcid=&goldbean=0&"
-         "silverbean=0&type=2&o_page=task&o_taskid=0&ref_url=");
+              "task_commit?callback=ret_task&cid=&gcid=&goldbean=0&"
+              "silverbean=0&type=2&o_page=task&o_taskid=0&ref_url=");
 
     url.addQueryItem("size", task.size);
     url.addQueryItem("uid", tc_session["userid"]);
@@ -143,8 +156,8 @@ void ThunderCore::reloadCloudTasks()
 void ThunderCore::addCloudTaskPre(const QString &url)
 {
     QUrl link ("http://dynamic.cloud.vip.xunlei.com/interface/"
-         "task_check?callback=queryCid"
-         "&random=13271369889801529719.0135479392&tcache=1327136998160");
+               "task_check?callback=queryCid"
+               "&random=13271369889801529719.0135479392&tcache=1327136998160");
     link.addQueryItem("url", url);
 
     get (link);
@@ -462,6 +475,11 @@ void ThunderCore::slotFinished(QNetworkReply *reply)
         reloadCloudTasks();
     }
 
+    if (urlStr.startsWith("http://dynamic.cloud.vip.xunlei.com/interface/task_delay"))
+    {
+        return;
+    }
+
     qDebug() << "Unhandled reply:" << "\n----";
     qDebug() << "URL: " << urlStr;
     qDebug() << "Cookie: ";
@@ -517,6 +535,9 @@ void ThunderCore::parseCloudPage(const QByteArray &body)
 
     tc_cloudTasks.clear();
 
+    /// CACHE TASK IDS for automatic task renewal
+    QStringList local_taskids;
+
     /// FIND TASKS
     foreach (const QWebElement & div, page.mainFrame()->findAllElements("div"))
     {
@@ -543,8 +564,13 @@ void ThunderCore::parseCloudPage(const QByteArray &body)
             if (task.bt_url.startsWith("bt://"))
                 task.type = Thunder::BT;
             tc_cloudTasks.push_back(task);
+
+            local_taskids.append(task.id);
         }
     }
+
+    /// MAGIC!
+    delayCloudTask(local_taskids);
 
     error (tr("%1 task(s) loaded.").arg(tc_cloudTasks.size()), Notice);
     emit StatusChanged(TaskChanged);
