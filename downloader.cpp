@@ -329,12 +329,6 @@ void Downloader::finishedTransfer()
 
             downloadBuffers.remove(begin);
         }
-        else
-        {
-            qDebug() << "Transmission error, CloudClient can't handle this right now.";
-            return;
-        }
-
     }
 
     if ( ++ finished_thread == thread_count )
