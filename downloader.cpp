@@ -329,6 +329,11 @@ void Downloader::finishedTransfer()
 
             downloadBuffers.remove(begin);
         }
+        else
+        {
+            qDebug() << "Transmission error, CloudClient can't handle this right now.";
+            return;
+        }
 
     }
 
@@ -390,9 +395,10 @@ void Downloader::readyRead()
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
 
-    if ( reply->error() )
+    if (reply->error())
     {
         qDebug() << "Transfer Error: " << reply->errorString();
+        return;
     }
 
     if ( ContentRangeRegEx.indexIn( reply->rawHeader("Content-Range") ) != -1 )
@@ -429,7 +435,7 @@ void Downloader::readyRead()
         }
     }
 
-    if ( interrupted )
+    if (interrupted)
     {
         reply->abort();
     }

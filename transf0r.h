@@ -43,6 +43,8 @@ public:
 private slots:
     void slotItemCanDelete (int id);
 
+    void on_label_linkActivated(const QString &link);
+
 private:
     Ui::Transf0r *ui;
 

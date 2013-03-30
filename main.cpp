@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     a.setApplicationName("CloudClient");
-    a.setApplicationVersion("0.32");
+    a.setApplicationVersion("0.35");
     a.setOrganizationName("Labo-A.L");
 
     Util::init();

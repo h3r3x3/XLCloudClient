@@ -59,3 +59,21 @@ void Transf0r::slotItemCanDelete(int id)
 {
     delete ui->listWidget->takeItem(id - 1);
 }
+
+void Transf0r::on_label_linkActivated(const QString &link)
+{
+    Q_UNUSED(link);
+
+    for (int i = ui->listWidget->count() - 1; i >= 0; --i)
+    {
+        QListWidgetItem *childItem = ui->listWidget->item (i);
+        DownloaderChildWidget *childWidget =
+                qobject_cast<DownloaderChildWidget*> (ui->listWidget->itemWidget(childItem));
+
+        if (childWidget->m_percentage == 100)
+        {
+            delete ui->listWidget->takeItem(i);
+        }
+    }
+
+}
