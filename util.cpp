@@ -45,6 +45,7 @@ void Util::init()
     static_iconMapping.insert("rm", ":/resources/images/movie.png");
     static_iconMapping.insert("rmvb", ":/resources/images/movie.png");
     static_iconMapping.insert("flv", ":/resources/images/movie.png");
+    static_iconMapping.insert("wmv", ":/resources/images/movie.png");
     static_iconMapping.insert("m4v", ":/resources/images/movie.png");
     static_iconMapping.insert("mov", ":/resources/images/movie.png");
     static_iconMapping.insert("mpg", ":/resources/images/movie.png");
@@ -55,6 +56,7 @@ void Util::init()
 
     static_iconMapping.insert("mp3", ":/resources/images/music.png");
     static_iconMapping.insert("wma", ":/resources/images/music.png");
+    static_iconMapping.insert("flac", ":/resources/images/music.png");
     static_iconMapping.insert("ape", ":/resources/images/music.png");
     static_iconMapping.insert("aac", ":/resources/images/music.png");
     static_iconMapping.insert("m4a", ":/resources/images/music.png");
